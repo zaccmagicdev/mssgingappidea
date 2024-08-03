@@ -1,0 +1,53 @@
+.header{
+    background: linear-gradient(45deg, #E09F7D, #EF5D60, #EC4067, #A01A7D, #7E3EB6);
+    background-size: 600% 600%;
+    -webkit-animation: animatedGradient 35s ease infinite;
+    -moz-animation: animatedGradient 35s ease infinite;
+    animation: animatedGradient 35s ease infinite;
+    box-sizing: border-box;
+}
+
+.header__container-title-toggle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__greeting{
+    margin: 20px 0px 20px 20px;
+    mix-blend-mode: difference;
+}
+
+@-webkit-keyframes animatedGradient {
+    0% {
+      background-position: 0% 94%;
+    }
+    50% {
+      background-position: 100% 7%;
+    }
+    100% {
+      background-position: 0% 94%;
+    }
+  }
+  @-moz-keyframes animatedGradient {
+    0% {
+      background-position: 0% 94%;
+    }
+    50% {
+      background-position: 100% 7%;
+    }
+    100% {
+      background-position: 0% 94%;
+    }
+  }
+  @keyframes animatedGradient {
+    0% {
+      background-position: 0% 94%;
+    }
+    50% {
+      background-position: 100% 7%;
+    }
+    100% {
+      background-position: 0% 94%;
+    }
+  }
