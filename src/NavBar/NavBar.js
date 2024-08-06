@@ -1,6 +1,7 @@
-import { React, useState } from "react";
+import { React, useState, useContext } from "react";
 import "./NavBar.css";
 import { Link } from "react-router-dom";
+import { currentColorContext } from "../contexts/CurrentColorTheme";
 
 export const NavBar = () => {
   const buttonData = [
@@ -16,11 +17,12 @@ export const NavBar = () => {
     setIsClicked(e.target.name);
   }
 
+  const { backgroundColor } = useContext(currentColorContext)
   return (
     <div className="navbar">
       {buttonData.map((button, i) => {
         const className =
-          isClicked === button.name ? "navbar__tab-selected-light" : "";
+          isClicked === button.name ? `navbar__tab-selected-${backgroundColor}` : "";
         return (
           <Link to={button.value} key={i}>
           <button

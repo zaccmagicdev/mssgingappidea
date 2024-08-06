@@ -11,5 +11,5 @@ export const Header = () => {
       </div>
       <NavBar className="header__navigation" />
     </header>
-  );
-};
+  
+)};

@@ -1,14 +1,23 @@
+li{
+    list-style: none;
+}
+
+p{
+    mix-blend-mode: difference;
+}
+
 .App{
     width: 100vw;
     height: 100vh;
     color: white;
-    border-radius: 30px;
 }
 
 .App_light{
     background-color: rgba(255, 255, 255, 0.873);
+    
 }
 
 .App_dark{
     background-color: rgb(45, 52, 58);
+    
 }

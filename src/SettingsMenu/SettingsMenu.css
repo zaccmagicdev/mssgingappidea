@@ -1,0 +1,12 @@
+.settingsmenu{
+    margin: auto;
+    max-width: 1000px;
+}
+
+.settingsmenu__setting{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    max-height: 30px;
+    align-items: center;
+}

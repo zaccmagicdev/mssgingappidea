@@ -15,9 +15,11 @@
 }
 
 .navbar__tab-selected-light{
-    background-color: rgba(255, 255, 255, 0.873);
+    background-color: white;
+    color: black;
 }
 
-.navbar_tab-selected-dark{
+.navbar__tab-selected-dark{
     background-color: rgb(45, 52, 58);
+    color: white;
 }
