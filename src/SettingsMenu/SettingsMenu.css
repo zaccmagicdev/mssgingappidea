@@ -3,10 +3,20 @@
     max-width: 1000px;
 }
 
+.settingsmenu__category-title{
+    text-align: center;
+    border-bottom: 2px solid white;
+}
+
 .settingsmenu__setting{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     max-height: 30px;
     align-items: center;
+}
+
+.settings__menu-button{
+    background: none;
+    border: none;
 }

@@ -6,6 +6,11 @@ p{
     mix-blend-mode: difference;
 }
 
+h2{
+    mix-blend-mode: difference;
+}
+
+
 .App{
     width: 100vw;
     height: 100vh;
