@@ -8,16 +8,19 @@ import { SettingsMenu } from "../SettingsMenu/SettingsMenu";
 import { currentColorContext } from "../contexts/CurrentColorTheme";
 
 function App() {
+  const [backgroundColor, setBackgroundColor] = React.useState("dark");
 
-  const [backgroundColor, setBackgroundColor] = React.useState('dark')
-
-  function handleBackgroundThemeChange(){
-    backgroundColor === 'dark' ? setBackgroundColor('light') : setBackgroundColor('dark')
+  function handleBackgroundThemeChange() {
+    backgroundColor === "dark"
+      ? setBackgroundColor("light")
+      : setBackgroundColor("dark");
   }
 
   return (
     <div className={`App App_${backgroundColor}`}>
-      <currentColorContext.Provider value={{backgroundColor, handleBackgroundThemeChange}}>
+      <currentColorContext.Provider
+        value={{ backgroundColor, handleBackgroundThemeChange }}
+      >
         <Header />
         <Routes>
           <Route exact path="/settings" element={<SettingsMenu />} />

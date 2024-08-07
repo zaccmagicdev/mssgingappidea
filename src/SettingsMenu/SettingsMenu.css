@@ -19,4 +19,13 @@
 .settings__menu-button{
     background: none;
     border: none;
+    overflow: hidden;
+}
+
+.settings__menu-button_dark{
+    color: white;
+}
+
+.settings__menu-button_light{
+    color: black;
 }

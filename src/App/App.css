@@ -1,28 +1,37 @@
-li{
-    list-style: none;
+li {
+  list-style: none;
 }
 
-p{
-    mix-blend-mode: difference;
+p {
+  mix-blend-mode: difference;
 }
 
-h2{
-    mix-blend-mode: difference;
+h2 {
+  mix-blend-mode: difference;
 }
 
-
-.App{
-    width: 100vw;
-    height: 100vh;
-    color: white;
+.App {
+  width: 100vw;
+  height: 100vh;
+  color: white;
 }
 
-.App_light{
-    background-color: rgba(255, 255, 255, 0.873);
-    
+.App_light {
+  background-color: rgba(255, 255, 255, 0.873);
 }
 
-.App_dark{
-    background-color: rgb(45, 52, 58);
-    
+.App_dark {
+  background-color: rgb(45, 52, 58);
+}
+
+@keyframes ripple {
+  from {
+    opacity: 1;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(10);
+  }
 }
