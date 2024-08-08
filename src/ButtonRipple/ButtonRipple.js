@@ -1,4 +1,5 @@
 import React from "react";
+import './ButtonRipple.css';
 
 export default function ButtonRipple({
   onClick,
@@ -7,17 +8,35 @@ export default function ButtonRipple({
   className,
   ripple,
   children,
-  style
+  style,
 }) {
-
   React.useEffect(() => {
-    const ripples = document.querySelectorAll(".rbutton_ripple")
-    ripples.forEach((ripple) => {
-        ripple.onclick = ({pageX, pageY, currentTarget}) => {
-            console.table(pageX, pageY, currentTarget)
-        }
-    })
-  })  
+    const rbuttons = document.querySelectorAll(".rbutton_ripple");
+    rbuttons.forEach((rbutton) => {
+      rbutton.onclick = ({ pageX, pageY, currentTarget }) => {
+
+        let x =
+          ((pageX - currentTarget.offsetLeft) * 100) /
+          currentTarget.offsetWidth;
+        let y =
+          ((pageY - currentTarget.offsetTop) * 100) /
+          currentTarget.offsetHeight;
+
+        const ripple = document.createElement("span");
+        const rippleColor = rbutton.dataset.ripple || "gray";
+        ripple.classList.add("ripple-effect");
+        ripple.style.background = rippleColor;
+
+        rbutton.appendChild(ripple);
+        ripple.style.left = x + "%";
+        ripple.style.top = y + "%";
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      };
+    });
+  }, []);
 
   return (
     <button
@@ -27,6 +46,8 @@ export default function ButtonRipple({
       rippleData={ripple}
       onClick={onClick}
       style={style}
-    >{children}</button>
+    >
+      {children}
+    </button>
   );
 }

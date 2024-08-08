@@ -1,13 +1,3 @@
-.settingsmenu{
-    margin: auto;
-    max-width: 1000px;
-}
-
-.settingsmenu__category-title{
-    text-align: center;
-    border-bottom: 2px solid white;
-}
-
 .settingsmenu__setting{
     display: flex;
     flex-direction: row;
@@ -18,15 +8,17 @@
 
 .settings__menu-button{
     background: none;
-    border: 1px solid #888;
+    border: none;
     overflow: hidden;
     padding: 2px;
 }
 
 .settings__menu-button_dark{
     color: white;
+    border: 1px solid white;
 }
 
 .settings__menu-button_light{
     color: black;
+    border: 1px solid black;
 }
