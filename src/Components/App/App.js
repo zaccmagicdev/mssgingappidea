@@ -1,11 +1,10 @@
 import "./App.css";
-import "../Header/Header";
 import { Header } from "../Header/Header";
-import { ChatRoom } from "../ChatRoom/ChatRoom";
 import * as React from "react";
 import { Route, Routes } from "react-router-dom";
 import { SettingsMenu } from "../SettingsMenu/SettingsMenu";
-import { currentColorContext } from "../contexts/CurrentColorTheme";
+import { currentColorContext } from "../../contexts/CurrentColorTheme";
+import LoginLandingPage from "../LoginLandingPage/LoginLandingPage";
 
 function App() {
   const [backgroundColor, setBackgroundColor] = React.useState("dark");

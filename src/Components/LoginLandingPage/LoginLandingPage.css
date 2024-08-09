@@ -1,0 +1,50 @@
+.login-landing-page__background {
+  background: linear-gradient(
+    45deg,
+    #e09f7d,
+    #ef5d60,
+    #ec4067,
+    #a01a7d,
+    #7e3eb6
+  );
+  background-size: 600% 600%;
+  -webkit-animation: animatedGradient 35s ease infinite;
+  -moz-animation: animatedGradient 35s ease infinite;
+  animation: animatedGradient 35s ease infinite;
+  width: 100vh;
+  height: 100vh;
+}
+
+@-webkit-keyframes animatedGradient {
+    0% {
+      background-position: 0% 94%;
+    }
+    50% {
+      background-position: 100% 7%;
+    }
+    100% {
+      background-position: 0% 94%;
+    }
+  }
+  @-moz-keyframes animatedGradient {
+    0% {
+      background-position: 0% 94%;
+    }
+    50% {
+      background-position: 100% 7%;
+    }
+    100% {
+      background-position: 0% 94%;
+    }
+  }
+  @keyframes animatedGradient {
+    0% {
+      background-position: 0% 94%;
+    }
+    50% {
+      background-position: 100% 7%;
+    }
+    100% {
+      background-position: 0% 94%;
+    }
+  }

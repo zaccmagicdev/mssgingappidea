@@ -1,7 +1,7 @@
 import { React, useState, useContext } from "react";
 import "./NavBar.css";
 import { Link } from "react-router-dom";
-import { currentColorContext } from "../contexts/CurrentColorTheme";
+import { currentColorContext } from "../../contexts/CurrentColorTheme";
 
 export const NavBar = () => {
   const buttonData = [
