@@ -20,7 +20,7 @@ function App() {
       <currentColorContext.Provider
         value={{ backgroundColor, handleBackgroundThemeChange }}
       >
-        <Header />
+      <LoginLandingPage />
         <Routes>
           <Route exact path="/settings" element={<SettingsMenu />} />
         </Routes>

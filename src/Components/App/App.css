@@ -23,15 +23,3 @@ h2 {
 .App_dark {
   background-color: rgb(45, 52, 58);
 }
-
-@keyframes ripple {
-  from {
-    opacity: 1;
-    transform: scale(0);
-  }
-
-  to {
-    opacity: 0;
-    transform: scale(10);
-  }
-}
