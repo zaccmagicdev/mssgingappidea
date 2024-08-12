@@ -1,7 +1,7 @@
 import React from "react";
-import ButtonRipple from "../../ButtonRipple/ButtonRipple";
+import ButtonRipple from "../../../Components/ButtonRipple/ButtonRipple";
 import "./SettingsMenuOption.css";
-import { currentColorContext } from "../../contexts/CurrentColorTheme"
+import { currentColorContext } from "../../../contexts/CurrentColorTheme"
 
 function SettingsMenuOption(props) {
   const { backgroundColor } = React.useContext(currentColorContext);

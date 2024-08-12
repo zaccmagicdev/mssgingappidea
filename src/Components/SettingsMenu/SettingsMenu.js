@@ -1,5 +1,5 @@
 import React from "react";
-import { currentColorContext } from "../contexts/CurrentColorTheme";
+import { currentColorContext } from "../../contexts/CurrentColorTheme";
 import "./SettingsMenu.css";
 import SettingsMenuOption from "./SettingsMenuOption/SettingsMenuOption";
 

@@ -4,6 +4,10 @@
   src: url('../src/vendor/fonts/RobotoMono-VariableFont_wght.woff');
 }
 
+p, h1, h2{
+  text-rendering: optimizeLegibility;
+}
+
 button{
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
   line-height: 1.2;
