@@ -13,19 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-button{
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
-  line-height: 1.2;
-}
 
 body {
   height: 100vh;
   width: 100vw;
   margin: 0;
-  /*font-family: 'Roboto', Arial, Helvetica, sans-serif;
-  line-height: 1.2;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;*/
 }
 
 code {

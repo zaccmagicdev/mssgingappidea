@@ -2,7 +2,9 @@ import React from "react";
 import "./LoginLandingPage.css";
 import ButtonRipple from "../ButtonRipple/ButtonRipple";
 
-function LoginLandingPage() {
+function LoginLandingPage(props) {
+
+
   return (
     <section className="login-landing-page__background">
       <div className="login-landing-page__container">
@@ -111,18 +113,20 @@ function LoginLandingPage() {
             <div className="login-landing-page__toggle-container login-landing-page__toggle-container_left">
               <h1 className="login-landing-page__header">Already with us?</h1>
               <p className="login-landing-page__text">Just sign in here!</p>
-            </div>
-            <div className="login-landing-page__toggle-container login-landing-page__toggle-container_right">
               <ButtonRipple className="login-landing-page__link">
                 Sign In
               </ButtonRipple>
+            </div>
+            <div className="login-landing-page__toggle-container login-landing-page__toggle-container_right">
               <h1 className="login-landing-page__header">New here?</h1>
               <p className="login-landing-page__text">
                 Click below to register
               </p>
+              <div className="button__container">
               <ButtonRipple className="login-landing-page__link">
                 Sign Up
               </ButtonRipple>
+              </div>
             </div>
           </div>
         </div>
