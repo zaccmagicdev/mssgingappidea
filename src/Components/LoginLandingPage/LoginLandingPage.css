@@ -117,6 +117,10 @@ input:focus {
   border-color: grey;
 }
 
+.test{
+  position: relative;
+}
+
 .login-landing-page__toggle-section {
   position: absolute;
   top: 0;

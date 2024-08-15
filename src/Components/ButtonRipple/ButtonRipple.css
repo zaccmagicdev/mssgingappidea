@@ -10,7 +10,7 @@
 }
 
 .rbutton_ripple{
-    overflow: hidden;
+   overflow: hidden;
 }
 
 .ripple-effect{
@@ -21,7 +21,7 @@
     height: 5px;
     pointer-events: none;
     z-index: 5;
-    animation: ripple 0.7s linear infinite;
+    animation: ripple 0.3s linear infinite;
 }
 
 @keyframes ripple {
