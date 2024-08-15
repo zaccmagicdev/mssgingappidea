@@ -4,10 +4,19 @@ import ButtonRipple from "../ButtonRipple/ButtonRipple";
 
 function LoginLandingPage(props) {
 
+  const [activeState, setActiveState] = React.useState("");
+
+  function setActive(){
+    setActiveState('active');
+  }
+
+  function removeActive(){
+    setActiveState("");
+  }
 
   return (
     <section className="login-landing-page__background">
-      <div className="login-landing-page__container">
+      <div className={`login-landing-page__container ${activeState}`}>
         <div className="login-landing-page__section login-landing-page__section_register">
           <form className="login-landing-page__form">
             <h1 className="login-landing-page__header">Create Account</h1>
@@ -113,7 +122,7 @@ function LoginLandingPage(props) {
             <div className="login-landing-page__toggle-container login-landing-page__toggle-container_left">
               <h1 className="login-landing-page__header">Already with us?</h1>
               <p className="login-landing-page__text">Just sign in here!</p>
-              <ButtonRipple className="login-landing-page__link">
+              <ButtonRipple className="login-landing-page__link" onClick={removeActive}>
                 Sign In
               </ButtonRipple>
             </div>
@@ -123,7 +132,7 @@ function LoginLandingPage(props) {
                 Click below to register
               </p>
               <div className="button__container">
-              <ButtonRipple className="login-landing-page__link">
+              <ButtonRipple className="login-landing-page__link" onClick={setActive}>
                 Sign Up
               </ButtonRipple>
               </div>
