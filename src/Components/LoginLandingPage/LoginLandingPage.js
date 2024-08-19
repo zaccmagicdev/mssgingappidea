@@ -55,7 +55,7 @@ function LoginLandingPage(props) {
                 maxLength="20"
               />
             </label>
-            <label className="login-landing-page__label" for="register-dob">
+            <label className="login-landing-page__label login-landing-page__label-date" for="register-dob">
               <input
                 type="date"
                 id="register-dob"

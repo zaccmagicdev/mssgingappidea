@@ -89,6 +89,12 @@
   width: 30px;
   height: 30px;
   cursor: pointer;
+  transition: transform 0.2s;
+  margin: 5px;
+}
+
+.login-landing-page__external-link:hover{
+  transform: scale(1.5);
 }
 
 .login-landing-page__text{
@@ -109,6 +115,10 @@
   width: 100%;
 }
 
+.login-landing-page__label-date{
+  width: 124px;
+}
+
 .login-landing-page__input {
   width: 100%;
   height: 30px;
@@ -122,10 +132,6 @@ input[type="date"] {
   background: transparent;
   filter: invert();
   border: 1px solid grey
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-  color: rgb(45, 52, 58);
 }
 
 input:focus {
