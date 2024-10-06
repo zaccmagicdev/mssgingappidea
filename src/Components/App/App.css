@@ -16,6 +16,7 @@ h2 {
   width: 100vw;
   height: 100vh;
   color: white;
+  display: inline-block;
 }
 
 .App_light {
