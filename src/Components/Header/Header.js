@@ -3,11 +3,12 @@ import "./Header.css";
 import { NavBar } from "../NavBar/NavBar";
 
 
-export const Header = () => {
+export const Header = (props) => {
   return (
     <header className="header">
       <div className="header__container-title-toggle">
-        <h1 className="header__greeting">Welcome back, BigDongBill!</h1>
+        <h1 className="header__greeting">Welcome back, {props.username}!</h1>
+        <img src={props.avatar} />
       </div>
       <NavBar className="header__navigation" />
     </header>

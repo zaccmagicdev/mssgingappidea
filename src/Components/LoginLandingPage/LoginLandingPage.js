@@ -78,8 +78,8 @@ function LoginLandingPage(props) {
               You can also sign in through
             </p>
             <div className="login-landing-page__other-options-container">
-              <button className="login-landing-page__link login-landing-page__external-link login-landing-page__google-link" />
-              <button className="login-landing-page__link login-landing-page__external-link login-landing-page__apple-link" />
+              <button className="login-landing-page__link login-landing-page__external-link login-landing-page__google-link" onClick={props.googleSignIn} />
+              <button className="login-landing-page__link login-landing-page__external-link login-landing-page__apple-link" onClick={props.appleSignIn}/>
             </div>
             <label className="login-landing-page__label" for="login-username">
               <input

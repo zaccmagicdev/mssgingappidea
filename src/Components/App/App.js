@@ -32,6 +32,14 @@ function App() {
       : setBackgroundColor("dark");
   }
 
+  const signInWithGoogle = (e) => {
+    e.preventDefault();
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider);
+  }
+
+  console.log(user);
+
   return (
     <div className={`App App_${backgroundColor}`}>
       <currentColorContext.Provider
@@ -39,7 +47,7 @@ function App() {
       >
         {user ? (
           <>
-            <Header />
+            <Header username={user.displayName} avatar={user.photoURL}/>
             <Routes>
               <Route exact path="/settings" element={<SettingsMenu />} />
               <Route exact path="/messages" element={<ChatRoom />} />
@@ -47,7 +55,7 @@ function App() {
           </>
         ) : (
           <>
-            <LoginLandingPage />
+            <LoginLandingPage googleSignIn={signInWithGoogle}/>
           </>
         )}
       </currentColorContext.Provider>
