@@ -7,7 +7,6 @@ export const appConfig = {
     messagingSenderId: "681522510707",
     appId: "1:681522510707:web:b9c5bd3d0622d78dbda306",
     measurementId: "G-LEWV39ZXSM"
-  
 };
 
 

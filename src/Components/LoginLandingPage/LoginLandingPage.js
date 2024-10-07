@@ -132,7 +132,7 @@ function LoginLandingPage(props) {
                 Click below to register
               </p>
               <div className="button__container">
-              <ButtonRipple className="login-landing-page__link" onClick={setActive}>
+              <ButtonRipple className="login-landing-page__link login-landing-page__link_signup" onClick={setActive}>
                 Sign Up
               </ButtonRipple>
               </div>

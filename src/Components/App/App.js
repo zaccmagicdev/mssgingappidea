@@ -8,14 +8,23 @@ import { currentColorContext } from "../../contexts/CurrentColorTheme";
 import LoginLandingPage from "../LoginLandingPage/LoginLandingPage";
 
 //connecting firebase
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import { initializeApp } from "firebase/app";
 import { appConfig } from "../../constants/firebaseconfig";
 
 //starting firebase
-const app = initializeApp(appConfig);
+firebase.initializeApp(appConfig);
+
+const auth = firebase.auth();
+const firestore = firebase.firestore();
 
 function App() {
   const [backgroundColor, setBackgroundColor] = React.useState("dark");
+  const [user] = useAuthState(auth);
 
   function handleBackgroundThemeChange() {
     backgroundColor === "dark"
@@ -28,14 +37,22 @@ function App() {
       <currentColorContext.Provider
         value={{ backgroundColor, handleBackgroundThemeChange }}
       >
-      <Header />
-        <Routes>
-          <Route exact path="/settings" element={<SettingsMenu />} />
-          <Route exact path="/messages" element={<ChatRoom />} />
-        </Routes>
+        {user ? (
+          <>
+            <Header />
+            <Routes>
+              <Route exact path="/settings" element={<SettingsMenu />} />
+              <Route exact path="/messages" element={<ChatRoom />} />
+            </Routes>
+          </>
+        ) : (
+          <>
+            <LoginLandingPage />
+          </>
+        )}
       </currentColorContext.Provider>
     </div>
   );
 }
 
-export default App; 
+export default App;
