@@ -1,10 +1,21 @@
 import React from "react";
 import "./LoginLandingPage.css";
 import ButtonRipple from "../ButtonRipple/ButtonRipple";
+import { INITIAL_FORM_STATE, LoginLandingPageReducer } from "./LoginLandingPageReducer";
+import { type } from "@testing-library/user-event/dist/type";
 
 function LoginLandingPage(props) {
 
   const [activeState, setActiveState] = React.useState("");
+  const [state, dispatch] = React.useReducer(LoginLandingPageReducer, INITIAL_FORM_STATE);
+  
+  console.log(state)
+  function handleChange(e){
+    dispatch({
+      type: "CHANGE_INPUT",
+      payload: { name: e.target.name, value: e.target.value }
+    });
+  }
 
   function setActive(){
     setActiveState('active');
@@ -39,6 +50,8 @@ function LoginLandingPage(props) {
                 required
                 minLength="5"
                 maxLength="16"
+                name="user"
+                onChange={(e) => handleChange(e)}
               />
             </label>
             <label
@@ -53,17 +66,11 @@ function LoginLandingPage(props) {
                 required
                 minLength="8"
                 maxLength="20"
+                name='pass'
+                onChange={(e) => handleChange(e)}
               />
             </label>
-            <label className="login-landing-page__label login-landing-page__label-date" for="register-dob">
-              <input
-                type="date"
-                id="register-dob"
-                max="2012-01-01"
-                min="1941-01-01"
-              />
-            </label>
-            <ButtonRipple
+            <ButtonRipple type='submit'
               className="login-landing-page__link"
               id="register-submit"
             >
@@ -90,6 +97,8 @@ function LoginLandingPage(props) {
                 required
                 minLength="5"
                 maxLength="16"
+                name="user"
+                onChange={(e) => handleChange(e)}
               />
             </label>
             <label className="login-landing-page__label" for="login-password">
@@ -101,6 +110,8 @@ function LoginLandingPage(props) {
                 required
                 minLength="8"
                 maxLength="20"
+                name="pass"
+                onChange={(e) => handleChange(e)}
               />
             </label>
             <ButtonRipple

@@ -32,11 +32,11 @@ function App() {
       : setBackgroundColor("dark");
   }
 
-  const signInWithGoogle = (e) => {
-    e.preventDefault();
+  const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   }
+
 
   return (
     <div className={`App App_${backgroundColor}`}>
@@ -53,7 +53,7 @@ function App() {
           </>
         ) : (
           <>
-            <LoginLandingPage googleSignIn={signInWithGoogle}/>
+            <LoginLandingPage googleSignIn={signInWithGoogle} />
           </>
         )}
       </currentColorContext.Provider>
