@@ -48,7 +48,7 @@ function App() {
             <Header username={user.displayName} avatar={user.photoURL}/>
             <Routes>
               <Route exact path="/settings" element={<SettingsMenu auth={auth}/>} />
-              <Route exact path="/messages" element={<ChatRoom />} />
+              <Route exact path="/messages" element={<ChatRoom firestore={firestore}/>} />
             </Routes>
           </>
         ) : (
