@@ -38,8 +38,6 @@ function App() {
     auth.signInWithPopup(provider);
   }
 
-  console.log(user);
-
   return (
     <div className={`App App_${backgroundColor}`}>
       <currentColorContext.Provider
@@ -49,7 +47,7 @@ function App() {
           <>
             <Header username={user.displayName} avatar={user.photoURL}/>
             <Routes>
-              <Route exact path="/settings" element={<SettingsMenu />} />
+              <Route exact path="/settings" element={<SettingsMenu auth={auth}/>} />
               <Route exact path="/messages" element={<ChatRoom />} />
             </Routes>
           </>

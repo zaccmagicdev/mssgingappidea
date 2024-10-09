@@ -4,8 +4,6 @@ import { NavBar } from "../NavBar/NavBar";
 
 
 export const Header = (props) => {
-
- console.log(props.avatar)
   
   return (
     <header className="header">
@@ -15,5 +13,4 @@ export const Header = (props) => {
       </div>
       <NavBar className="header__navigation" />
     </header>
-  
 )};

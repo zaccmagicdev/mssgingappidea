@@ -1,4 +1,6 @@
 .chatbox{
     border: 1px solid grey;
     background-color: inherit;
+    max-width: 1000px;
+    height: auto;
 }

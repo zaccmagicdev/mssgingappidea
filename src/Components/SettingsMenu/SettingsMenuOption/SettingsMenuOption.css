@@ -6,6 +6,12 @@
     align-items: center;
 }
 
+.settingsmenu__setting-title{
+    margin: 0;
+    width: 154px;
+    text-align: center;
+}
+
 .settings__menu-button{
     background: none;
     border: none;
