@@ -8,6 +8,8 @@ function LoginLandingPage(props) {
   const [activeState, setActiveState] = React.useState("");
   const [state, dispatch] = React.useReducer(LoginLandingPageReducer, INITIAL_FORM_STATE);
   
+  console.log(state)
+
   function handleChange(e){
     dispatch({
       type: "CHANGE_INPUT",
@@ -19,7 +21,7 @@ function LoginLandingPage(props) {
     dispatch({
       type: "SUBMIT_METHOD",
       payload: e.target.parentElement.classList[1] === ('login-landing-page__form_register') ? 
-      {submitMethod: props.handleSignUpSubmit(state.email, state.password)}
+      {submitMethod: props.handleSignUpSubmit(state.username, state.email, state.password)}
       :
       {submitMethod: props.handleSignInSubmit(state.email, state.password)}
     })

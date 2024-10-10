@@ -13,12 +13,12 @@ export const LoginLandingPageReducer = (state, action) => {
     case "SUBMIT_METHOD":
       return {
         ...state,
-        submitMethod: (email, password) =>
-          action.payload.submitMethod(email, password),
+        submitMethod: (username, email, password) =>
+          action.payload.submitMethod(username, email, password),
       };
 
     case "SUBMIT_METHOD_GOOGLE":
-      
+
     case "SUBMIT_METHOD_APPLE":
 
     default:

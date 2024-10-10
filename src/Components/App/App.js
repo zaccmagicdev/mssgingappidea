@@ -49,7 +49,7 @@ function App() {
       });
   }
 
-  function signUpFormMethod(email, password) {
+  function signUpFormMethod(username, email, password) {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -57,6 +57,14 @@ function App() {
         // Signed in
         user = userCredential.user;
         // ...
+      }).then(() => {
+        auth.onAuthStateChanged(() => {
+          user.updateProfile({ // <-- Update Method here
+
+            displayName: username,
+
+          })
+        })
       })
       .catch((error) => {
        console.error(error)
