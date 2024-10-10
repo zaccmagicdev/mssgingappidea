@@ -8,9 +8,9 @@ import { currentColorContext } from "../../contexts/CurrentColorTheme";
 import LoginLandingPage from "../LoginLandingPage/LoginLandingPage";
 
 //connecting firebase
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { initializeApp } from "firebase/app";
@@ -24,7 +24,9 @@ const firestore = firebase.firestore();
 
 function App() {
   const [backgroundColor, setBackgroundColor] = React.useState("dark");
-  const [user] = useAuthState(auth);
+  let [user] = useAuthState(auth);
+
+  console.log(user)
 
   function handleBackgroundThemeChange() {
     backgroundColor === "dark"
@@ -32,12 +34,42 @@ function App() {
       : setBackgroundColor("dark");
   }
 
-  const signInWithGoogle = () => {
+  //Auth Methods
+  function signInFormMethod(email, password) {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Signed in
+        user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        console.error(error)
+      });
+  }
+
+  function signUpFormMethod(email, password) {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Signed in
+        user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+       console.error(error)
+        // ..
+      });
+  }
+
+  function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   }
 
-
+  //app
   return (
     <div className={`App App_${backgroundColor}`}>
       <currentColorContext.Provider
@@ -45,15 +77,23 @@ function App() {
       >
         {user ? (
           <>
-            <Header username={user.displayName} avatar={user.photoURL}/>
+            <Header username={user.displayName} avatar={user.photoURL} />
             <Routes>
-              <Route exact path="/settings" element={<SettingsMenu auth={auth}/>} />
-              <Route exact path="/messages" element={<ChatRoom firestore={firestore}/>} />
+              <Route
+                exact
+                path="/settings"
+                element={<SettingsMenu auth={auth} />}
+              />
+              <Route
+                exact
+                path="/messages"
+                element={<ChatRoom firestore={firestore} />}
+              />
             </Routes>
           </>
         ) : (
           <>
-            <LoginLandingPage googleSignIn={signInWithGoogle} />
+            <LoginLandingPage googleSignIn={signInWithGoogle} handleSignUpSubmit={signUpFormMethod}  handleSignInSubmit={signInFormMethod}/>
           </>
         )}
       </currentColorContext.Provider>

@@ -5,16 +5,24 @@ import { INITIAL_FORM_STATE, LoginLandingPageReducer } from "./LoginLandingPageR
 import { type } from "@testing-library/user-event/dist/type";
 
 function LoginLandingPage(props) {
-
   const [activeState, setActiveState] = React.useState("");
   const [state, dispatch] = React.useReducer(LoginLandingPageReducer, INITIAL_FORM_STATE);
   
-  console.log(state)
   function handleChange(e){
     dispatch({
       type: "CHANGE_INPUT",
       payload: { name: e.target.name, value: e.target.value }
     });
+  }
+
+  function handleSubmit(e){
+    dispatch({
+      type: "SUBMIT_METHOD",
+      payload: e.target.parentElement.classList[1] === ('login-landing-page__form_register') ? 
+      {submitMethod: props.handleSignUpSubmit(state.email, state.password)}
+      :
+      {submitMethod: props.handleSignInSubmit(state.email, state.password)}
+    })
   }
 
   function setActive(){
@@ -29,7 +37,7 @@ function LoginLandingPage(props) {
     <section className="login-landing-page__background">
       <div className={`login-landing-page__container ${activeState}`}>
         <div className="login-landing-page__section login-landing-page__section_register">
-          <form className="login-landing-page__form">
+          <form className="login-landing-page__form login-landing-page__form_register">
             <h1 className="login-landing-page__header">Create Account</h1>
             <p className="login-landing-page__text">
               You can also create an account through
@@ -48,9 +56,25 @@ function LoginLandingPage(props) {
                 id="register-username"
                 placeholder="Username"
                 required
-                minLength="5"
-                maxLength="16"
-                name="user"
+                minLength="2"
+                maxLength="20"
+                name='username'
+                onChange={(e) => handleChange(e)}
+              />
+            </label>
+            <label
+              className="login-landing-page__label"
+              for="register-username"
+            >
+              <input
+                className="login-landing-page__input"
+                type="text"
+                id="register-email"
+                placeholder="Email"
+                required
+                minLength="4"
+                maxLength="30"
+                name="email"
                 onChange={(e) => handleChange(e)}
               />
             </label>
@@ -66,11 +90,12 @@ function LoginLandingPage(props) {
                 required
                 minLength="8"
                 maxLength="20"
-                name='pass'
+                name='password'
                 onChange={(e) => handleChange(e)}
               />
             </label>
-            <ButtonRipple type='submit'
+            <ButtonRipple
+              onClick={(e) => {handleSubmit(e)}}
               className="login-landing-page__link"
               id="register-submit"
             >
@@ -79,7 +104,7 @@ function LoginLandingPage(props) {
           </form>
         </div>
         <div className="login-landing-page__section login-landing-page__section_login">
-          <form className="login-landing-page__form">
+          <form className="login-landing-page__form login-landing-page__form_sign-in">
             <h1 className="login-landing-page__header">Welcome back!</h1>
             <p className="login-landing-page__other-options-text">
               You can also sign in through
@@ -97,7 +122,7 @@ function LoginLandingPage(props) {
                 required
                 minLength="5"
                 maxLength="16"
-                name="user"
+                name="email"
                 onChange={(e) => handleChange(e)}
               />
             </label>
@@ -110,11 +135,12 @@ function LoginLandingPage(props) {
                 required
                 minLength="8"
                 maxLength="20"
-                name="pass"
+                name="password"
                 onChange={(e) => handleChange(e)}
               />
             </label>
             <ButtonRipple
+              onClick={(e) => {handleSubmit(e)}}
               className="login-landing-page__link"
               id="sign-in-submit"
             >
