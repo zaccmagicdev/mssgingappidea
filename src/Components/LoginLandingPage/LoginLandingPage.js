@@ -27,6 +27,13 @@ function LoginLandingPage(props) {
     })
   }
 
+  function handleGoogleSignIn(){
+   dispatch({
+    type: "SUBMIT_METHOD_GOOGLE",
+    payload: props.googleSignIn()
+   })
+  }
+
   function setActive(){
     setActiveState('active');
   }
@@ -106,15 +113,15 @@ function LoginLandingPage(props) {
           </form>
         </div>
         <div className="login-landing-page__section login-landing-page__section_login">
-          <form className="login-landing-page__form login-landing-page__form_sign-in">
-            <h1 className="login-landing-page__header">Welcome back!</h1>
+        <h1 className="login-landing-page__header">Welcome back!</h1>
             <p className="login-landing-page__other-options-text">
               You can also sign in through
             </p>
             <div className="login-landing-page__other-options-container">
-              <button className="login-landing-page__link login-landing-page__external-link login-landing-page__google-link" onClick={props.googleSignIn} />
+              <button className="login-landing-page__link login-landing-page__external-link login-landing-page__google-link" type="button" onClick={handleGoogleSignIn} />
               <button className="login-landing-page__link login-landing-page__external-link login-landing-page__apple-link" onClick={props.appleSignIn}/>
             </div>
+          <form className="login-landing-page__form login-landing-page__form_sign-in">
             <label className="login-landing-page__label" for="login-username">
               <input
                 className="login-landing-page__input"

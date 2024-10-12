@@ -18,9 +18,13 @@ export const LoginLandingPageReducer = (state, action) => {
       };
 
     case "SUBMIT_METHOD_GOOGLE":
-
+      return {
+        ...state,
+        submitMethod: () =>
+          action.payload.submitMethod(),
+      };
     case "SUBMIT_METHOD_APPLE":
-
+      
     default:
       return state;
   }

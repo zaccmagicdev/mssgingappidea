@@ -26,6 +26,7 @@ function App() {
   const [backgroundColor, setBackgroundColor] = React.useState("dark");
   let [user] = useAuthState(auth);
   const [username, setUsername] = React.useState(null);
+  const [ avatar, setAvatar ] = React.useState(null)
   console.log(user);
 
   function handleBackgroundThemeChange() {
@@ -40,9 +41,7 @@ function App() {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        // Signed in
         user = userCredential.user;
-        // ...
       })
       .catch((error) => {
         console.error(error);
@@ -59,7 +58,6 @@ function App() {
       })
       .catch((error) => {
         console.error(error);
-        // ..
       });
   }
 
@@ -69,7 +67,8 @@ function App() {
   }
 
   auth.onAuthStateChanged((user) => {
-   user && (user.updateProfile({displayName: username}).catch(err => console.error(err)))
+   user && (user.updateProfile({displayName: username, avatar: avatar})
+   .catch(err => console.error(err)))
   });
 
   React.useEffect(() => {
