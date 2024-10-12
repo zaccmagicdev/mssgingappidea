@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Header.css";
 import { NavBar } from "../NavBar/NavBar";
 
 
 export const Header = (props) => {
   
+  console.log(props.username)
+
   return (
     <header className="header">
       <div className="header__container-title-toggle">

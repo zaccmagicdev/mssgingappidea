@@ -25,8 +25,8 @@ const firestore = firebase.firestore();
 function App() {
   const [backgroundColor, setBackgroundColor] = React.useState("dark");
   let [user] = useAuthState(auth);
-
-  console.log(user)
+  const [username, setUsername] = React.useState(null);
+  console.log(user);
 
   function handleBackgroundThemeChange() {
     backgroundColor === "dark"
@@ -45,7 +45,7 @@ function App() {
         // ...
       })
       .catch((error) => {
-        console.error(error)
+        console.error(error);
       });
   }
 
@@ -54,20 +54,11 @@ function App() {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        // Signed in
+        setUsername(username)
         user = userCredential.user;
-        // ...
-      }).then(() => {
-        auth.onAuthStateChanged(() => {
-          user.updateProfile({ // <-- Update Method here
-
-            displayName: username,
-
-          })
-        })
       })
       .catch((error) => {
-       console.error(error)
+        console.error(error);
         // ..
       });
   }
@@ -77,6 +68,14 @@ function App() {
     auth.signInWithPopup(provider);
   }
 
+  auth.onAuthStateChanged((user) => {
+   user && (user.updateProfile({displayName: username}).catch(err => console.error(err)))
+  });
+
+  React.useEffect(() => {
+    user && (setUsername(user.displayName))
+  }, [user])
+
   //app
   return (
     <div className={`App App_${backgroundColor}`}>
@@ -85,7 +84,7 @@ function App() {
       >
         {user ? (
           <>
-            <Header username={user.displayName} avatar={user.photoURL} />
+            <Header username={username} avatar={user.photoURL} />
             <Routes>
               <Route
                 exact
@@ -101,7 +100,11 @@ function App() {
           </>
         ) : (
           <>
-            <LoginLandingPage googleSignIn={signInWithGoogle} handleSignUpSubmit={signUpFormMethod}  handleSignInSubmit={signInFormMethod}/>
+            <LoginLandingPage
+              googleSignIn={signInWithGoogle}
+              handleSignUpSubmit={signUpFormMethod}
+              handleSignInSubmit={signInFormMethod}
+            />
           </>
         )}
       </currentColorContext.Provider>
