@@ -118,8 +118,8 @@
     url("../../vendor/icons/google-plus-g-brands-solid.svg") no-repeat center;
 }
 
-.login-landing-page__apple-link {
-  background: transparent url("../../vendor/icons/apple-brands-solid.svg")
+.login-landing-page__facebook-link {
+  background: transparent url("../../vendor/icons/facebook-brands-solid.svg")
     no-repeat center;
 }
 
