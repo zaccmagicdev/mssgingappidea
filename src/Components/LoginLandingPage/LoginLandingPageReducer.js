@@ -23,12 +23,7 @@ export const LoginLandingPageReducer = (state, action) => {
         submitMethod: () =>
           action.payload.submitMethod(),
       };
-    case "SUBMIT_METHOD_FACEBOOK":
-      return {
-        ...state,
-        submitMethod: () =>
-          action.payload.submitMethod(),
-      };
+
     default:
       return state;
   }

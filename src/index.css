@@ -4,6 +4,12 @@
   src: url('../src/vendor/fonts/RobotoMono-VariableFont_wght.woff');
 }
 
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  src: url('../src/vendor/fonts/ProductSans-Regular.woff');
+}
+
 *{
   line-height: 1.2;
   box-sizing: border-box;

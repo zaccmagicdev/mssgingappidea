@@ -13,7 +13,7 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { initializeApp } from 'firebase-admin/app';
+
 import { appConfig } from "../../constants/firebaseconfig";
 
 //starting firebase
@@ -67,11 +67,6 @@ function App() {
     auth.signInWithPopup(provider);
   }
 
-  function signInWithFacebook(){
-    const provider = new firebase.auth.FacebookAuthProvider();
-    auth.signInWithPopup(provider);
-  }
-
   auth.onAuthStateChanged((user) => {
    user && (user.updateProfile({displayName: username, avatar: avatar})
    .catch(err => console.error(err)))
@@ -107,7 +102,6 @@ function App() {
           <>
             <LoginLandingPage
               googleSignIn={signInWithGoogle}
-              facebookSignIn={signInWithFacebook}
               handleSignUpSubmit={signUpFormMethod}
               handleSignInSubmit={signInFormMethod}
             />

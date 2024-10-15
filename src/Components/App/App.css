@@ -6,6 +6,7 @@ li {
 
 p {
   mix-blend-mode: difference;
+  margin: 0;
 }
 
 h2 {

@@ -36,6 +36,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 15px;
 }
 
 .login-landing-page__section_login {
@@ -103,10 +104,11 @@
   cursor: pointer;
   transition: transform 0.2s;
   margin: 5px;
+
 }
 
 .login-landing-page__external-link:hover{
-  transform: scale(1.5);
+  opacity: 90%;
 }
 
 .login-landing-page__text{
@@ -115,12 +117,15 @@
 
 .login-landing-page__google-link {
   background: transparent
-    url("../../vendor/icons/google-plus-g-brands-solid.svg") no-repeat center;
-}
-
-.login-landing-page__facebook-link {
-  background: transparent url("../../vendor/icons/facebook-brands-solid.svg")
-    no-repeat center;
+    url("../../vendor/icons/google-plus-g-brands-solid.svg") no-repeat left;
+    filter:none;
+    background-color: #ff6961;
+    width: 200px;
+    font-family: 'Product Sans', Arial, sans-serif;
+    font-size: 20px;
+    color: white;
+    padding: 3px;
+    border-radius: 5px;
 }
 
 .login-landing-page__label {
@@ -132,7 +137,7 @@
 }
 
 .login-landing-page__input {
-  width: 100%;
+  width: 310px;
   height: 30px;
   background: none;
   border: 1px solid grey;

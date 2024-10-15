@@ -8,7 +8,6 @@ export const SettingsMenu = (props) => {
     React.useContext(currentColorContext);
     
     function signOut(){
-      console.log('hi')
       props.auth.signOut()
     }
 

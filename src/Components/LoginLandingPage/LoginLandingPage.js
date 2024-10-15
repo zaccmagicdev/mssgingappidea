@@ -34,14 +34,6 @@ function LoginLandingPage(props) {
    })
   }
 
-  function handleFacebookSignIn(){
-    dispatch({
-     type: "SUBMIT_METHOD_FACEBOOK",
-     payload: props.facebookSignIn()
-    })
-   }
- 
-
   function setActive(){
     setActiveState('active');
   }
@@ -59,10 +51,11 @@ function LoginLandingPage(props) {
             <p className="login-landing-page__text">
               You can also create an account through
             </p>
-            <div className="login-landing-page__other-options-container">
-              <button className="login-landing-page__link login-landing-page__external-link login-landing-page__google-link" />
-              <button className="login-landing-page__link login-landing-page__external-link login-landing-page__apple-link" />
-            </div>
+           
+              <button className="login-landing-page__link login-landing-page__external-link login-landing-page__google-link" type="button" onClick={handleGoogleSignIn}>
+                Google
+              </button>
+           
             <label
               className="login-landing-page__label"
               for="register-username"
@@ -125,10 +118,9 @@ function LoginLandingPage(props) {
             <p className="login-landing-page__other-options-text">
               You can also sign in through
             </p>
-            <div className="login-landing-page__other-options-container">
-              <button className="login-landing-page__link login-landing-page__external-link login-landing-page__google-link" type="button" onClick={handleGoogleSignIn} />
-              <button className="login-landing-page__link login-landing-page__external-link login-landing-page__facebook-link" type="button" onClick={handleFacebookSignIn}/>
-            </div>
+            <button className="login-landing-page__link login-landing-page__external-link login-landing-page__google-link" type="button" onClick={handleGoogleSignIn}>
+                Google
+              </button>
           <form className="login-landing-page__form login-landing-page__form_sign-in">
             <label className="login-landing-page__label" for="login-username">
               <input
