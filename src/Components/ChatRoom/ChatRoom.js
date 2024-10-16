@@ -7,6 +7,7 @@ import 'firebase/compat/firestore';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { initializeApp } from "firebase/app";
+import chatSubmitIcon from '../../vendor/icons/paper-plane-solid.svg'
 
 export const ChatRoom = (props) => {
 
@@ -15,12 +16,15 @@ export const ChatRoom = (props) => {
 
   const [messages] = useCollectionData(query, {idField: 'id'})
 
+
   return (
    <section className='chatroom'>
     <ul>
-
+      
     </ul>
-   <ChatBox />
+   <ChatBox placeholder={'Say Something Meaningful!'} submitIcon={chatSubmitIcon}>
+
+   </ChatBox>
    </section>
   )
 }

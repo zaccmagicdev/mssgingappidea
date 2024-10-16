@@ -1,6 +1,29 @@
 .chatbox{
-    border: 1px solid grey;
     background-color: inherit;
     max-width: 1000px;
     height: auto;
+}
+
+.chatbox__text-submit{
+    display: flex;
+    justify-content: space-around;
+}
+
+.chatbox__text-submit > *{
+    height: 40px;
+    border-radius: 30px;
+    border: 1px solid grey;
+}
+
+#chatbox-input{
+    border: 1px solid grey;
+    background: rgb(128, 128, 128, 0.25);
+    max-width: 400px;
+    padding: 10px;
+}
+
+.chatbox__submit-button{
+    width: 40px;
+    filter: invert();
+    padding: 2px;
 }

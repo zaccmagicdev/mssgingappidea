@@ -36,6 +36,11 @@ function App() {
       : setBackgroundColor("dark");
   }
 
+  function setProfileData(username, avatar){
+      setUsername(username)
+      setAvatar(avatar)
+  }
+
   //Auth Methods
   function signInFormMethod(email, password) {
     firebase
@@ -73,7 +78,7 @@ function App() {
   });
 
   React.useEffect(() => {
-    user && (setUsername(user.displayName))
+    user && (setProfileData(user.displayName, user.photoURL))
   }, [user])
 
   //app
@@ -84,7 +89,7 @@ function App() {
       >
         {user ? (
           <>
-            <Header username={username} avatar={user.photoURL} />
+            <Header username={username} avatar={avatar} />
             <Routes>
               <Route
                 exact
