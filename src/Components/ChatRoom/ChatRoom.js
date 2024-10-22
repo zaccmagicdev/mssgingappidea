@@ -8,6 +8,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { initializeApp } from "firebase/app";
 import chatSubmitIcon from '../../vendor/icons/paper-plane-solid.svg'
+import chatAppendIcon from '../../vendor/icons/plus-solid.svg'
+
 
 export const ChatRoom = (props) => {
 
@@ -23,7 +25,7 @@ export const ChatRoom = (props) => {
       
     </ul>
    <ChatBox placeholder={'Say Something Meaningful!'} submitIcon={chatSubmitIcon}>
-
+      <button id='append-content-button' />
    </ChatBox>
    </section>
   )

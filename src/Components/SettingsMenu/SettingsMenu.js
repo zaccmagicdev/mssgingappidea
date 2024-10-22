@@ -10,8 +10,6 @@ export const SettingsMenu = (props) => {
     function signOut(){
       props.auth.signOut()
     }
-
-    console.log(props.auth)
     
   return (
     <section className="settingsmenu">

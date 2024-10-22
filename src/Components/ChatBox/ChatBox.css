@@ -1,12 +1,14 @@
 .chatbox{
     background-color: inherit;
-    max-width: 1000px;
+    max-width: 100%;
     height: auto;
+    border-top: 1px solid grey;
 }
 
 .chatbox__text-submit{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .chatbox__text-submit > *{
@@ -15,15 +17,29 @@
     border: 1px solid grey;
 }
 
+.chatbox__text-submit > button {
+    width: 40px;
+    filter: invert(100%);
+    mix-blend-mode: difference;
+    padding: 2px;
+    border: 1px solid rgb(77,77, 77, 0.85);
+}
+
 #chatbox-input{
     border: 1px solid grey;
     background: rgb(128, 128, 128, 0.25);
-    max-width: 400px;
+    width: 60%;
     padding: 10px;
+}
+
+::placeholder, ::-moz-placeholder{
+    color: rgb(128, 128, 128 );
 }
 
 .chatbox__submit-button{
     width: 40px;
-    filter: invert();
+    filter: invert(100%);
+    mix-blend-mode: difference;
     padding: 2px;
+    border: 1px solid rgb(77,77, 77, 0.85);
 }

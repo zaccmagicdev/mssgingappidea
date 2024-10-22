@@ -2,7 +2,6 @@ import React from "react";
 import "./Message.css";
 
 export const Message = (props) => {
-  const currentDate = new Date(Date.now()).toString();
 
   return (
     <li className="message">
@@ -15,7 +14,7 @@ export const Message = (props) => {
         <p className="message__username">
           {props.Username}
           <span className="message__timestamp">
-            Today at {currentDate.substring(15, 21)}
+            Today at {props.currentDate}
           </span>
         </p>
         <p className="message__content">{props.MessageContent}</p>
