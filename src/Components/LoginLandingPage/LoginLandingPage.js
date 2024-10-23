@@ -7,7 +7,8 @@ import { type } from "@testing-library/user-event/dist/type";
 function LoginLandingPage(props) {
   const [activeState, setActiveState] = React.useState("");
   const [state, dispatch] = React.useReducer(LoginLandingPageReducer, INITIAL_FORM_STATE);
-  
+  const errorRef = React.useRef('');
+
   console.log(state)
 
   function handleChange(e){
@@ -41,6 +42,12 @@ function LoginLandingPage(props) {
   function removeActive(){
     setActiveState("");
   }
+
+  React.useEffect(() => {
+    if(state.email === "" || state.password === "" && state.submitMethod.length != 0){
+      errorRef.current.classList.add('login-landing-page__error_active')
+    }
+  }, [state.submitMethod])
 
   return (
     <section className="login-landing-page__background">
@@ -104,6 +111,7 @@ function LoginLandingPage(props) {
                 onChange={(e) => handleChange(e)}
               />
             </label>
+            <span ref={errorRef} className="login-landing-page__error">This is a test and that is all</span>
             <ButtonRipple
               onClick={(e) => {handleSubmit(e)}}
               className="login-landing-page__link"
@@ -127,7 +135,7 @@ function LoginLandingPage(props) {
                 className="login-landing-page__input"
                 type="text"
                 id="login-username"
-                placeholder="Username"
+                placeholder="Email"
                 required
                 minLength="5"
                 maxLength="16"
@@ -148,6 +156,7 @@ function LoginLandingPage(props) {
                 onChange={(e) => handleChange(e)}
               />
             </label>
+            <span ref={errorRef} className="login-landing-page__error">This is a test and that is all</span>
             <ButtonRipple
               onClick={(e) => {handleSubmit(e)}}
               className="login-landing-page__link"

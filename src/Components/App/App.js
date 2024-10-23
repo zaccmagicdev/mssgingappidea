@@ -27,8 +27,6 @@ function App() {
   let [user] = useAuthState(auth);
   const [username, setUsername] = React.useState(null);
   const [ avatar, setAvatar ] = React.useState(null);
-  
-  console.log(user);
 
   function handleBackgroundThemeChange() {
     backgroundColor === "dark"
@@ -50,7 +48,8 @@ function App() {
         user = userCredential.user;
       })
       .catch((error) => {
-        console.error(error);
+        console.error(error)
+        
       });
   }
 
@@ -63,7 +62,8 @@ function App() {
         user = userCredential.user;
       })
       .catch((error) => {
-        console.error(error);
+          console.error(error)
+       
       });
   }
 
