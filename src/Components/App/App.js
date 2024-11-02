@@ -1,7 +1,7 @@
 import "./App.css";
 import { Header } from "../Header/Header";
 import * as React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { SettingsMenu } from "../SettingsMenu/SettingsMenu";
 import { ChatRoom } from "../ChatRoom/ChatRoom";
 import { currentColorContext } from "../../contexts/CurrentColorTheme";
@@ -12,7 +12,6 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import { appConfig } from "../../constants/firebaseconfig";
 
@@ -24,11 +23,12 @@ const firestore = firebase.firestore();
 
 function App() {
   const [backgroundColor, setBackgroundColor] = React.useState("dark");
+  //let user = auth.currentUser;
   let [user] = useAuthState(auth);
   const [username, setUsername] = React.useState(null);
-  const [ avatar, setAvatar ] = React.useState(null);
-  
-  console.log(user);
+  const [avatar, setAvatar] = React.useState(null);
+
+  const navigate = useNavigate();
 
   function handleBackgroundThemeChange() {
     backgroundColor === "dark"
@@ -36,9 +36,9 @@ function App() {
       : setBackgroundColor("dark");
   }
 
-  function setProfileData(username, avatar){
-      setUsername(username)
-      setAvatar(avatar)
+  function setProfileData(username, avatar) {
+    setUsername(username);
+    setAvatar(avatar);
   }
 
   //Auth Methods
@@ -50,7 +50,11 @@ function App() {
         user = userCredential.user;
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
+      })
+      .finally(() => {
+        //force re-render
+        setProfileData(user.displayName, user.photoURL);
       });
   }
 
@@ -59,27 +63,72 @@ function App() {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        setUsername(username)
         user = userCredential.user;
+        setUsername(username);
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        console.log(user);
+        navigate("/messages");
       });
   }
 
   function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
+    auth
+      .signInWithPopup(provider)
+      .then((result) => {
+        user = result.user;
+      })
+      .catch((err) => console.error(err))
+      .finally(() => {
+        setProfileData(user.displayName, user.photoURL);
+      });
   }
 
-  auth.onAuthStateChanged((user) => {
-   user && (user.updateProfile({displayName: username, avatar: avatar})
-   .catch(err => console.error(err)))
-  });
+  function resetPassword(email) {
+    console.log(email);
+    auth
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        // Password reset email sent!
+        // ..
+      })
+      .catch((error) => {
+        console.error(error);
+        // ..
+      });
+  }
+
+  function handleSignOut() {
+    auth
+      .signOut()
+      .then(() => {
+        setProfileData(null, null);
+      })
+      .catch((err) => console.error(err));
+  }
 
   React.useEffect(() => {
-    user && (setProfileData(user.displayName, user.photoURL))
-  }, [user])
+    user &&
+      auth.onAuthStateChanged((currentUser) => {
+        if (currentUser) {
+          user = currentUser;
+          setProfileData(user.displayName, user.photoURL);
+          //setProfileData(currentUser.displayName, currentUser.profileURL)
+          /*currentUser
+          .updateProfile({ displayName: username, avatar: avatar })
+          .catch((err) => console.error(err))
+          .finally(() => {navigate("/messages")})*/
+        }
+      });
+  }, []);
+
+  React.useEffect(() => {
+    user && setProfileData(user.displayName, user.photoURL);
+  }, []);
 
   //app
   return (
@@ -94,7 +143,7 @@ function App() {
               <Route
                 exact
                 path="/settings"
-                element={<SettingsMenu auth={auth} />}
+                element={<SettingsMenu signOutMethod={handleSignOut} />}
               />
               <Route
                 exact
@@ -109,6 +158,7 @@ function App() {
               googleSignIn={signInWithGoogle}
               handleSignUpSubmit={signUpFormMethod}
               handleSignInSubmit={signInFormMethod}
+              handleResetPassword={resetPassword}
             />
           </>
         )}

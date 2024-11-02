@@ -2,6 +2,7 @@ export const INITIAL_FORM_STATE = {
   username: "",
   email: "",
   password: "",
+  resetEmail: "",
   submitMethod: () => {},
 };
 
@@ -20,8 +21,13 @@ export const LoginLandingPageReducer = (state, action) => {
     case "SUBMIT_METHOD_GOOGLE":
       return {
         ...state,
-        submitMethod: () =>
-          action.payload.submitMethod(),
+        submitMethod: () => action.payload.submitMethod(),
+      };
+
+    case "SUBMIT_METHOD_RESET":
+      return {
+        ...state,
+        submitMethod: (email) => action.payload.submitMethod(email),
       };
 
     default:

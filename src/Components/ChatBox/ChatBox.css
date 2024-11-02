@@ -30,10 +30,7 @@
     background: rgb(128, 128, 128, 0.25);
     width: 60%;
     padding: 10px;
-}
-
-::placeholder, ::-moz-placeholder{
-    color: rgb(128, 128, 128 );
+    color: white;
 }
 
 .chatbox__submit-button{

@@ -4,7 +4,7 @@ import "./SettingsMenu.css";
 import SettingsMenuOption from "./SettingsMenuOption/SettingsMenuOption";
 
 export const SettingsMenu = (props) => {
-  const { handleBackgroundThemeChange, backgroundColor } =
+  const { handleBackgroundThemeChange } =
     React.useContext(currentColorContext);
     
     function signOut(){
@@ -17,7 +17,7 @@ export const SettingsMenu = (props) => {
         <h2 className="settingsmenu__category-title">General Settings</h2>
         <SettingsMenuOption OptionName='Background Color' Callback={handleBackgroundThemeChange} ButtonName='Change Theme' />
         <h2 className="settingsmenu__category-title">User Settings</h2>
-        <SettingsMenuOption OptionName='Log Out' Callback={signOut} ButtonName='Log Out' />
+        <SettingsMenuOption OptionName='Log Out' Callback={props.signOutMethod} ButtonName='Log Out' />
       </ul>
     </section>
   );
