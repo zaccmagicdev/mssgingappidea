@@ -15,12 +15,15 @@ function ForgotPasswordForm(props) {
     INITIAL_FORM_STATE
   );
 
-  console.log(state)
+  console.log(state.resetEmail)
 
-  /*function handleSendEmail(email) {
-    props.emailSubmissionMethod(email);
+  function handleSendEmail() {
+    dispatch({
+      type: "SUBMIT_METHOD_RESET",
+      payload: props.emailSubmissionMethod(state.resetEmail),
+    });
     setEmailSent(true);
-  }*/
+  }
 
   function handleChange(e) {
     dispatch({
@@ -34,7 +37,7 @@ function ForgotPasswordForm(props) {
       {emailSent ? (
         <>
           <h1 className="forgotpassword__title">Request Sent!</h1>
-          <p>Check for a popup about resetting your email</p>
+          <p>We sent you an email that will redirect you to reset your password! If you don't see it immediately in your inbox then please check your inbox</p>
         </>
       ) : (
         <>
@@ -46,10 +49,12 @@ function ForgotPasswordForm(props) {
           <ChatBox
             placeholder={"Enter Email Address"}
             submitIcon={Arrow}
-            submitMethod={(email) => {props.emailSubmissionMethod(email)}}
+            submitMethod={() => {handleSendEmail()}}
             handleOnChange={(e) => {handleChange(e)}}
             name='resetEmail'
-          />
+          >
+            <button type="button" className="forgotpassword__return" onClick={props.returnCallback} />
+          </ChatBox>
         </>
       )}
     </section>

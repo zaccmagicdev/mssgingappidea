@@ -2,17 +2,22 @@ import React, { useEffect } from "react";
 import "./Header.css";
 import { NavBar } from "../NavBar/NavBar";
 
-
 export const Header = (props) => {
-  
-  console.log(props.username)
-
   return (
     <header className="header">
       <div className="header__container-title-toggle">
         <h1 className="header__greeting">Welcome back, {props.username}!</h1>
-        <img src={props.avatar} alt='Profile Avatar' />
+        <img
+          style={{ width: "100px", height: "100px" }}
+          src={
+            props.avatar.includes("svg")
+              ? `data:image/svg+xml;utf8,${props.avatar}`
+              : props.avatar
+          }
+          alt="Profile Avatar"
+        />
       </div>
       <NavBar className="header__navigation" />
     </header>
-)};
+  );
+};

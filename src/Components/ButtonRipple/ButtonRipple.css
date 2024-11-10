@@ -9,6 +9,16 @@
     padding: 0 1.2rem;
 }
 
+.rbutton_dark{
+    color: white;
+    border: 1px solid white;
+}
+
+.rbutton_light{
+    color: black;
+    border: 1px solid black;
+}
+
 .rbutton_ripple{
    overflow: hidden;
 }

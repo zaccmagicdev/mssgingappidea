@@ -7,6 +7,7 @@ import { ChatRoom } from "../ChatRoom/ChatRoom";
 import { currentColorContext } from "../../contexts/CurrentColorTheme";
 import LoginLandingPage from "../LoginLandingPage/LoginLandingPage";
 
+import { generateFromString } from "generate-avatar";
 //connecting firebase
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -14,6 +15,11 @@ import "firebase/compat/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { appConfig } from "../../constants/firebaseconfig";
+
+import {
+  INITIAL_FORM_STATE,
+  LoginLandingPageReducer,
+} from "../LoginLandingPage/LoginLandingPageReducer";
 
 //starting firebase
 firebase.initializeApp(appConfig);
@@ -26,7 +32,7 @@ function App() {
   //let user = auth.currentUser;
   let [user] = useAuthState(auth);
   const [username, setUsername] = React.useState(null);
-  const [avatar, setAvatar] = React.useState(null);
+  const [avatar, setAvatar] = React.useState("");
 
   const navigate = useNavigate();
 
@@ -39,6 +45,14 @@ function App() {
   function setProfileData(username, avatar) {
     setUsername(username);
     setAvatar(avatar);
+  }
+
+  function renderAvatar(avatar) {
+    if (avatar.includes("svg")) {
+      return `data:image/svg+xml;utf8,${avatar}`;
+    } else {
+      return avatar;
+    }
   }
 
   //Auth Methods
@@ -64,7 +78,13 @@ function App() {
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         user = userCredential.user;
-        setUsername(username);
+        setProfileData(username, generateFromString(email));
+      })
+      .then(() => {
+        user.updateProfile({
+          displayName: username,
+          photoURL: generateFromString(email),
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -81,25 +101,16 @@ function App() {
       .signInWithPopup(provider)
       .then((result) => {
         user = result.user;
-      })
-      .catch((err) => console.error(err))
-      .finally(() => {
         setProfileData(user.displayName, user.photoURL);
-      });
+      })
+      .catch((err) => console.error(err));
   }
 
   function resetPassword(email) {
-    console.log(email);
-    auth
-      .sendPasswordResetEmail(email)
-      .then(() => {
-        // Password reset email sent!
-        // ..
-      })
-      .catch((error) => {
-        console.error(error);
-        // ..
-      });
+    console.log(state);
+    auth.sendPasswordResetEmail(email).catch((error) => {
+      console.error(error);
+    });
   }
 
   function handleSignOut() {
@@ -116,19 +127,20 @@ function App() {
       auth.onAuthStateChanged((currentUser) => {
         if (currentUser) {
           user = currentUser;
+          console.log(currentUser);
           setProfileData(user.displayName, user.photoURL);
-          //setProfileData(currentUser.displayName, currentUser.profileURL)
-          /*currentUser
-          .updateProfile({ displayName: username, avatar: avatar })
-          .catch((err) => console.error(err))
-          .finally(() => {navigate("/messages")})*/
         }
       });
   }, []);
 
   React.useEffect(() => {
     user && setProfileData(user.displayName, user.photoURL);
-  }, []);
+  }, [user]);
+
+  const [state, dispatch] = React.useReducer(
+    LoginLandingPageReducer,
+    INITIAL_FORM_STATE
+  );
 
   //app
   return (
@@ -138,12 +150,18 @@ function App() {
       >
         {user ? (
           <>
-            <Header username={username} avatar={avatar} />
+            <Header username={username} avatar={renderAvatar(avatar)} />
             <Routes>
               <Route
                 exact
                 path="/settings"
-                element={<SettingsMenu signOutMethod={handleSignOut} />}
+                element={
+                  <SettingsMenu
+                    signOutMethod={handleSignOut}
+                    auth={auth}
+                    user={user}
+                  />
+                }
               />
               <Route
                 exact

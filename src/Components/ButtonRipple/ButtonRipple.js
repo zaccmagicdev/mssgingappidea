@@ -1,6 +1,8 @@
 import React from "react";
 import './ButtonRipple.css';
 
+import { currentColorContext } from "../../contexts/CurrentColorTheme";
+
 export default function ButtonRipple({
   onClick,
   type,
@@ -10,6 +12,7 @@ export default function ButtonRipple({
   children,
   style,
 }) {
+  const { backgroundColor } = React.useContext(currentColorContext);
   React.useEffect(() => {
     const rbuttons = document.querySelectorAll(".rbutton_ripple");
     rbuttons.forEach((rbutton) => {
@@ -40,7 +43,7 @@ export default function ButtonRipple({
     <button
       type={type ? type : "button"}
       id={id}
-      className={`rbutton rbutton_ripple ${className ? className : ""}`}
+      className={`rbutton rbutton_${backgroundColor} rbutton_ripple ${className ? className : ""}`}
       rippleData={ripple}
       onClick={onClick}
       style={style}

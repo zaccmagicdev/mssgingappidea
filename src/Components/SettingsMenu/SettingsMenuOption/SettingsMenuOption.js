@@ -10,7 +10,7 @@ function SettingsMenuOption(props) {
     <li className="settingsmenu__setting">
       <p className="settingsmenu__setting-title">{props.OptionName}</p>
       <ButtonRipple
-        className={`settings__menu-button settings__menu-button_${backgroundColor} menu__setting-title-switch`}
+        className={`settings__menu-button menu__setting-title-switch`}
         onClick={props.Callback}
       >
         {props.ButtonName}

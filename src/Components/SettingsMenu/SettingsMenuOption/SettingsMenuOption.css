@@ -18,13 +18,3 @@
     overflow: hidden;
     padding: 2px;
 }
-
-.settings__menu-button_dark{
-    color: white;
-    border: 1px solid white;
-}
-
-.settings__menu-button_light{
-    color: black;
-    border: 1px solid black;
-}

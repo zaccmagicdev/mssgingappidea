@@ -5,7 +5,8 @@ export const Message = (props) => {
 
   return (
     <li className="message">
-      <div className="message__container">
+      <div className="message__container" style={{backgroundColor: props.color}}>
+        <p>{props.username}</p>
         <img
           className="message__profile-picture"
           src={props.ProfileURL}
