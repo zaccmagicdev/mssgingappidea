@@ -9,6 +9,7 @@ import ForgotPasswordForm from "../ForgotPasswordForm/ForgotPasswordForm";
 
 function LoginLandingPage(props) {
   const [activeState, setActiveState] = React.useState("");
+<<<<<<< HEAD
   const [forgotPasswordActivated, activateForgetPasswordForm] =
     React.useState(false);
   const [state, dispatch] = React.useReducer(
@@ -16,6 +17,12 @@ function LoginLandingPage(props) {
     INITIAL_FORM_STATE
   );
   const errorRef = React.useRef("");
+=======
+  const [state, dispatch] = React.useReducer(LoginLandingPageReducer, INITIAL_FORM_STATE);
+  const errorRef = React.useRef('');
+
+  console.log(state)
+>>>>>>> f3918630419b10dcd6e016ef0ee90d6bf503dade
 
   function handleChange(e) {
     dispatch({
@@ -69,6 +76,7 @@ function LoginLandingPage(props) {
     setActiveState("");
   }
 
+<<<<<<< HEAD
   /*React.useEffect(() => {
     if (
       (state.email === "" || state.password === "") &&
@@ -77,6 +85,13 @@ function LoginLandingPage(props) {
       errorRef.current.classList.add("login-landing-page__error_active");
     }
   }, [state.submitMethod]);*/
+=======
+  React.useEffect(() => {
+    if(state.email === "" || state.password === "" && state.submitMethod.length != 0){
+      errorRef.current.classList.add('login-landing-page__error_active')
+    }
+  }, [state.submitMethod])
+>>>>>>> f3918630419b10dcd6e016ef0ee90d6bf503dade
 
   return (
     <section className="login-landing-page__background">
@@ -100,6 +115,7 @@ function LoginLandingPage(props) {
               >
                 Google
               </button>
+<<<<<<< HEAD
 
               <label
                 className="login-landing-page__label"
@@ -172,6 +188,107 @@ function LoginLandingPage(props) {
               className="login-landing-page__link login-landing-page__external-link login-landing-page__google-link"
               type="button"
               onClick={handleGoogleSignIn}
+=======
+           
+            <label
+              className="login-landing-page__label"
+              for="register-username"
+            >
+              <input
+                className="login-landing-page__input"
+                type="text"
+                id="register-username"
+                placeholder="Username"
+                required
+                minLength="2"
+                maxLength="20"
+                name='username'
+                onChange={(e) => handleChange(e)}
+              />
+            </label>
+            <label
+              className="login-landing-page__label"
+              for="register-username"
+            >
+              <input
+                className="login-landing-page__input"
+                type="text"
+                id="register-email"
+                placeholder="Email"
+                required
+                minLength="4"
+                maxLength="30"
+                name="email"
+                onChange={(e) => handleChange(e)}
+              />
+            </label>
+            <label
+              className="login-landing-page__label"
+              for="register-password"
+            >
+              <input
+                className="login-landing-page__input"
+                type="password"
+                id="register-password"
+                placeholder="Password"
+                required
+                minLength="8"
+                maxLength="20"
+                name='password'
+                onChange={(e) => handleChange(e)}
+              />
+            </label>
+            <span ref={errorRef} className="login-landing-page__error">This is a test and that is all</span>
+            <ButtonRipple
+              onClick={(e) => {handleSubmit(e)}}
+              className="login-landing-page__link"
+              id="register-submit"
+            >
+              Sign Up
+            </ButtonRipple>
+          </form>
+        </div>
+        <div className="login-landing-page__section login-landing-page__section_login">
+        <h1 className="login-landing-page__header">Welcome back!</h1>
+            <p className="login-landing-page__other-options-text">
+              You can also sign in through
+            </p>
+            <button className="login-landing-page__link login-landing-page__external-link login-landing-page__google-link" type="button" onClick={handleGoogleSignIn}>
+                Google
+              </button>
+          <form className="login-landing-page__form login-landing-page__form_sign-in">
+            <label className="login-landing-page__label" for="login-username">
+              <input
+                className="login-landing-page__input"
+                type="text"
+                id="login-username"
+                placeholder="Email"
+                required
+                minLength="5"
+                maxLength="16"
+                name="email"
+                onChange={(e) => handleChange(e)}
+              />
+            </label>
+            <label className="login-landing-page__label" for="login-password">
+              <input
+                className="login-landing-page__input"
+                type="password"
+                id="login-password"
+                placeholder="Password"
+                required
+                minLength="8"
+                maxLength="20"
+                name="password"
+                onChange={(e) => handleChange(e)}
+              />
+            </label>
+            <span ref={errorRef} className="login-landing-page__error">This is a test and that is all</span>
+            <ButtonRipple
+              onClick={(e) => {handleSubmit(e)}}
+              className="login-landing-page__link"
+              id="sign-in-submit"
+>>>>>>> f3918630419b10dcd6e016ef0ee90d6bf503dade
             >
               Google
             </button>
