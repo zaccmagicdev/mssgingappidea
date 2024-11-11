@@ -48,12 +48,14 @@ function App() {
   }
 
   function renderAvatar(avatar) {
+    if(avatar !== null){
     if (avatar.includes("svg")) {
       return `data:image/svg+xml;utf8,${avatar}`;
     } else {
       return avatar;
     }
   }
+}
 
   //Auth Methods
   function signInFormMethod(email, password) {
@@ -101,9 +103,13 @@ function App() {
       .signInWithPopup(provider)
       .then((result) => {
         user = result.user;
-        setProfileData(user.displayName, user.photoURL);
+        console.log(user)
+        user.updateProfile({
+          displayName: username,
+          photoURL: generateFromString(user.email),
+        })
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err)).finally(() => setProfileData(user.displayName, user.photoURL))
   }
 
   function resetPassword(email) {
@@ -127,17 +133,16 @@ function App() {
       auth.onAuthStateChanged((currentUser) => {
         if (currentUser) {
           user = currentUser;
-          console.log(currentUser);
           setProfileData(user.displayName, user.photoURL);
         }
       });
   }, []);
 
   React.useEffect(() => {
-    user && setProfileData(user.displayName, user.photoURL);
-  }, [user]);
+    user && setProfileData(user.displayName, renderAvatar(user.photoURL));
+  }, [user, avatar]);
 
-  const [state, dispatch] = React.useReducer(
+  const [state ] = React.useReducer(
     LoginLandingPageReducer,
     INITIAL_FORM_STATE
   );
@@ -150,7 +155,7 @@ function App() {
       >
         {user ? (
           <>
-            <Header username={username} avatar={renderAvatar(avatar)} />
+            <Header username={username} avatar={avatar} />
             <Routes>
               <Route
                 exact
@@ -160,6 +165,7 @@ function App() {
                     signOutMethod={handleSignOut}
                     auth={auth}
                     user={user}
+                    avatar={avatar}
                   />
                 }
               />

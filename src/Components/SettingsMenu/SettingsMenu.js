@@ -21,8 +21,9 @@ export const SettingsMenu = (props) => {
     setProfileEditOpen(false)
   }
 
-  function handleUpdateProfile(e, newUsername, newAvatar, newEmail){
+  function handleUpdateProfile(e, newUsername="", newAvatar="", newEmail=""){
     e.preventDefault();
+
   }
 
   function signOut() {
@@ -34,7 +35,7 @@ export const SettingsMenu = (props) => {
       {profileEditOpen ? (
        <SettingsMenuPopup name="edit-profile" callbackFunction={closeEditProfile} height={'210px'}>
           <h1>Edit Profile</h1>
-          <Message username={props.user.displayName} ProfileURL={props.user.photoURL} currentDate={'12:00'} MessageContent={'This is some text'}/>
+          <Message Username={props.user.displayName} ProfileURL={props.avatar} currentDate={'12:00'} MessageContent={'This is some text'}/>
           <form className="settingsmenu__edit-profile__form" type='submit' onSubmit={() => handleUpdateProfile}>
             <label>
               <input name="newUsername" />

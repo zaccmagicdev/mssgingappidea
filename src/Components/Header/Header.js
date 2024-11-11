@@ -9,11 +9,7 @@ export const Header = (props) => {
         <h1 className="header__greeting">Welcome back, {props.username}!</h1>
         <img
           style={{ width: "100px", height: "100px" }}
-          src={
-            props.avatar.includes("svg")
-              ? `data:image/svg+xml;utf8,${props.avatar}`
-              : props.avatar
-          }
+          src={props.avatar}
           alt="Profile Avatar"
         />
       </div>

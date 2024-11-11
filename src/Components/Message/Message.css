@@ -6,11 +6,11 @@
 .message__container {
   display: grid;
   grid-template-areas:
-    "picture username timestamp"
-    "picture textcontent textcontent";
+    "picture username username timestamp"
+    "picture textcontent textcontent textcontent";
 
-    grid-template-columns: 70px 2fr;
-    grid-template-rows: 50px;
+    grid-template-columns: 70px 70px;
+    grid-template-rows: 30px;
 }
 
 .message__profile-picture {
@@ -18,11 +18,11 @@
   width: 50px;
   height: 50px;
   grid-area: picture;
-  margin-top: 20px;
 }
 
 .message__username{
   grid-area: username;
+  font-size: 18px;
 }
 
 .message__timestamp {
