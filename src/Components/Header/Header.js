@@ -8,7 +8,7 @@ export const Header = (props) => {
       <div className="header__container-title-toggle">
         <h1 className="header__greeting">Welcome back, {props.username}!</h1>
         <img
-          style={{ width: "100px", height: "100px" }}
+          style={{ width: "100px", height: "100px", borderRadius: "5px"}}
           src={props.avatar}
           alt="Profile Avatar"
         />

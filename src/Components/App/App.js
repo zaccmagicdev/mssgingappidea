@@ -31,6 +31,7 @@ function App() {
   const [backgroundColor, setBackgroundColor] = React.useState("dark");
   //let user = auth.currentUser;
   let [user] = useAuthState(auth);
+  console.log(user)
   const [username, setUsername] = React.useState(null);
   const [avatar, setAvatar] = React.useState("");
 
@@ -113,7 +114,6 @@ function App() {
   }
 
   function resetPassword(email) {
-    console.log(state);
     auth.sendPasswordResetEmail(email).catch((error) => {
       console.error(error);
     });
@@ -123,24 +123,28 @@ function App() {
     auth
       .signOut()
       .then(() => {
-        setProfileData(null, null);
+        setProfileData(null, "");
       })
       .catch((err) => console.error(err));
   }
 
   React.useEffect(() => {
     user &&
+      console.log('hi')
       auth.onAuthStateChanged((currentUser) => {
         if (currentUser) {
           user = currentUser;
-          setProfileData(user.displayName, user.photoURL);
+          console.log(user, currentUser)
+          setProfileData(user.displayName, renderAvatar(user.photoURL));
+        } else {
+          setProfileData(null, "");
         }
       });
   }, []);
 
-  React.useEffect(() => {
+  /*React.useEffect(() => {
     user && setProfileData(user.displayName, renderAvatar(user.photoURL));
-  }, [user, avatar]);
+  }, [user]);*/
 
   const [state ] = React.useReducer(
     LoginLandingPageReducer,
