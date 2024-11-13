@@ -20,6 +20,7 @@ import {
   INITIAL_FORM_STATE,
   LoginLandingPageReducer,
 } from "../LoginLandingPage/LoginLandingPageReducer";
+import { BLACKLISTED_WORDS } from "../../constants/constants";
 
 //starting firebase
 firebase.initializeApp(appConfig);
@@ -31,11 +32,19 @@ function App() {
   const [backgroundColor, setBackgroundColor] = React.useState("dark");
   //let user = auth.currentUser;
   let [user] = useAuthState(auth);
-  console.log(user)
+  console.log(user);
   const [username, setUsername] = React.useState(null);
   const [avatar, setAvatar] = React.useState("");
 
   const navigate = useNavigate();
+
+  function checkForProfanity(string) {
+    const stringSplit = string.split(/\s+/);
+    return stringSplit.some(
+      (str) =>
+        BLACKLISTED_WORDS.includes(str.toLowerCase())
+    );
+  }
 
   function handleBackgroundThemeChange() {
     backgroundColor === "dark"
@@ -49,14 +58,14 @@ function App() {
   }
 
   function renderAvatar(avatar) {
-    if(avatar !== null){
-    if (avatar.includes("svg")) {
-      return `data:image/svg+xml;utf8,${avatar}`;
-    } else {
-      return avatar;
+    if (avatar !== null) {
+      if (avatar.includes("svg")) {
+        return `data:image/svg+xml;utf8,${avatar}`;
+      } else {
+        return avatar;
+      }
     }
   }
-}
 
   //Auth Methods
   function signInFormMethod(email, password) {
@@ -76,26 +85,31 @@ function App() {
   }
 
   function signUpFormMethod(username, email, password) {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        user = userCredential.user;
-        setProfileData(username, generateFromString(email));
-      })
-      .then(() => {
-        user.updateProfile({
-          displayName: username,
-          photoURL: generateFromString(email),
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
-        console.log(user);
-        navigate("/messages");
-      });
+    if (checkForProfanity(username)) {
+      console.log("Please enter in a more appropriate username");
+    } else {
+      /*firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          user = userCredential.user;
+          setProfileData(username, generateFromString(email));
+        })
+        .then(() => {
+          user.updateProfile({
+            displayName: username,
+            photoURL: generateFromString(email),
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          console.log(user);
+          navigate("/messages");
+        });*/
+        console.log(username)
+    }
   }
 
   function signInWithGoogle() {
@@ -104,13 +118,14 @@ function App() {
       .signInWithPopup(provider)
       .then((result) => {
         user = result.user;
-        console.log(user)
+        console.log(user);
         user.updateProfile({
           displayName: username,
           photoURL: generateFromString(user.email),
-        })
+        });
       })
-      .catch((err) => console.error(err)).finally(() => setProfileData(user.displayName, user.photoURL))
+      .catch((err) => console.error(err))
+      .finally(() => setProfileData(user.displayName, user.photoURL));
   }
 
   function resetPassword(email) {
@@ -129,27 +144,23 @@ function App() {
   }
 
   React.useEffect(() => {
-    user &&
-      console.log('hi')
-      auth.onAuthStateChanged((currentUser) => {
-        if (currentUser) {
-          user = currentUser;
-          console.log(user, currentUser)
-          setProfileData(user.displayName, renderAvatar(user.photoURL));
-        } else {
-          setProfileData(null, "");
-        }
-      });
+    user && console.log("hi");
+    auth.onAuthStateChanged((currentUser) => {
+      if (currentUser) {
+        user = currentUser;
+        console.log(user, currentUser);
+        setProfileData(user.displayName, renderAvatar(user.photoURL));
+      } else {
+        setProfileData(null, "");
+      }
+    });
   }, []);
 
   /*React.useEffect(() => {
     user && setProfileData(user.displayName, renderAvatar(user.photoURL));
   }, [user]);*/
 
-  const [state ] = React.useReducer(
-    LoginLandingPageReducer,
-    INITIAL_FORM_STATE
-  );
+  const [state] = React.useReducer(LoginLandingPageReducer, INITIAL_FORM_STATE);
 
   //app
   return (
