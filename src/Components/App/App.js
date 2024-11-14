@@ -1,3 +1,4 @@
+//imports
 import "./App.css";
 import { Header } from "../Header/Header";
 import * as React from "react";
@@ -6,8 +7,8 @@ import { SettingsMenu } from "../SettingsMenu/SettingsMenu";
 import { ChatRoom } from "../ChatRoom/ChatRoom";
 import { currentColorContext } from "../../contexts/CurrentColorTheme";
 import LoginLandingPage from "../LoginLandingPage/LoginLandingPage";
-
 import { generateFromString } from "generate-avatar";
+
 //connecting firebase
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -32,17 +33,16 @@ function App() {
   const [backgroundColor, setBackgroundColor] = React.useState("dark");
   //let user = auth.currentUser;
   let [user] = useAuthState(auth);
-  console.log(user);
   const [username, setUsername] = React.useState(null);
   const [avatar, setAvatar] = React.useState("");
+  const [landingPageError, setLandingPageError] = React.useState({});
 
   const navigate = useNavigate();
 
   function checkForProfanity(string) {
-    const stringSplit = string.split(/\s+/);
-    return stringSplit.some(
-      (str) =>
-        BLACKLISTED_WORDS.includes(str.toLowerCase())
+    const lowerCase = string.toLowerCase();
+    return BLACKLISTED_WORDS.some((str) =>
+      lowerCase.includes(str.toLowerCase())
     );
   }
 
@@ -86,9 +86,12 @@ function App() {
 
   function signUpFormMethod(username, email, password) {
     if (checkForProfanity(username)) {
-      console.log("Please enter in a more appropriate username");
+      setLandingPageError(
+        new Error("Please enter in a more appropriate username")
+      );
     } else {
-      /*firebase
+      Object.keys(landingPageError).length !== 0 && setLandingPageError({});
+      firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
@@ -107,8 +110,7 @@ function App() {
         .finally(() => {
           console.log(user);
           navigate("/messages");
-        });*/
-        console.log(username)
+        });
     }
   }
 
@@ -118,7 +120,6 @@ function App() {
       .signInWithPopup(provider)
       .then((result) => {
         user = result.user;
-        console.log(user);
         user.updateProfile({
           displayName: username,
           photoURL: generateFromString(user.email),
@@ -144,21 +145,16 @@ function App() {
   }
 
   React.useEffect(() => {
-    user && console.log("hi");
-    auth.onAuthStateChanged((currentUser) => {
-      if (currentUser) {
-        user = currentUser;
-        console.log(user, currentUser);
-        setProfileData(user.displayName, renderAvatar(user.photoURL));
-      } else {
-        setProfileData(null, "");
-      }
-    });
+    user &&
+      auth.onAuthStateChanged((currentUser) => {
+        if (currentUser) {
+          user = currentUser;
+          setProfileData(user.displayName, renderAvatar(user.photoURL));
+        } else {
+          setProfileData(null, "");
+        }
+      });
   }, []);
-
-  /*React.useEffect(() => {
-    user && setProfileData(user.displayName, renderAvatar(user.photoURL));
-  }, [user]);*/
 
   const [state] = React.useReducer(LoginLandingPageReducer, INITIAL_FORM_STATE);
 
@@ -198,6 +194,7 @@ function App() {
               handleSignUpSubmit={signUpFormMethod}
               handleSignInSubmit={signInFormMethod}
               handleResetPassword={resetPassword}
+              loginLandingPageErrProp={landingPageError.message}
             />
           </>
         )}

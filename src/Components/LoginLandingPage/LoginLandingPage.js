@@ -1,3 +1,4 @@
+//imports
 import React from "react";
 import "./LoginLandingPage.css";
 import ButtonRipple from "../ButtonRipple/ButtonRipple";
@@ -61,9 +62,15 @@ function LoginLandingPage(props) {
     setActiveState("");
   }
 
-  function returnToForm(){
-    activateForgetPasswordForm(false)
+  function returnToForm() {
+    activateForgetPasswordForm(false);
   }
+
+  React.useEffect(() => {
+    if (errorRef.current != "" || errorRef.current != undefined) {
+     errorRef.current.classList.add('login-landing-page__error_active')
+    }
+  }, [props.loginLandingPageErrProp]);
 
   return (
     <section className="login-landing-page__background">
@@ -90,7 +97,9 @@ function LoginLandingPage(props) {
               >
                 Google
               </button>
-
+              <span ref={errorRef} className="login-landing-page__error">
+                {props.loginLandingPageErrProp}
+              </span>
               <label
                 className="login-landing-page__label"
                 for="register-username"
@@ -139,9 +148,6 @@ function LoginLandingPage(props) {
                   onChange={(e) => handleChange(e)}
                 />
               </label>
-              <span ref={errorRef} className="login-landing-page__error">
-                This is a test and that is all
-              </span>
               <ButtonRipple
                 onClick={(e) => {
                   handleSubmit(e);
@@ -192,9 +198,6 @@ function LoginLandingPage(props) {
                   onChange={(e) => handleChange(e)}
                 />
               </label>
-              <span ref={errorRef} className="login-landing-page__error">
-                This is a test and that is all
-              </span>
               <ButtonRipple
                 onClick={(e) => {
                   handleSubmit(e);
