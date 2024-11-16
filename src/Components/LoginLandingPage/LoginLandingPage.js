@@ -7,6 +7,7 @@ import {
   LoginLandingPageReducer,
 } from "./LoginLandingPageReducer";
 import ForgotPasswordForm from "../ForgotPasswordForm/ForgotPasswordForm";
+import "animate.css";
 
 function LoginLandingPage(props) {
   const [activeState, setActiveState] = React.useState("");
@@ -67,8 +68,20 @@ function LoginLandingPage(props) {
   }
 
   React.useEffect(() => {
-    if (errorRef.current != "" || errorRef.current != undefined) {
-     errorRef.current.classList.add('login-landing-page__error_active')
+    if (errorRef.current !== "" || errorRef.current !== undefined) {
+      errorRef.current.classList.add("login-landing-page__error_active");
+      errorRef.current.classList.add(
+        "animate__animated",
+        "animate__shakeX",
+        "animate__delay-0.2s"
+      );
+      errorRef.current.addEventListener("animationend", () =>
+        errorRef.current.classList.remove(
+          "animate__animated",
+          "animate__shakeX",
+          "animate__delay-0.2s"
+        )
+      );
     }
   }, [props.loginLandingPageErrProp]);
 
