@@ -90,7 +90,6 @@ function App() {
         new Error("Please enter in a more appropriate username")
       );
     } else {
-      Object.keys(landingPageError).length !== 0 && setLandingPageError({});
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
@@ -105,10 +104,11 @@ function App() {
           });
         })
         .catch((error) => {
-          console.error(error);
+          setLandingPageError(error)
         })
         .finally(() => {
           console.log(user);
+          Object.keys(landingPageError).length !== 0 && setLandingPageError({});
           navigate("/messages");
         });
     }

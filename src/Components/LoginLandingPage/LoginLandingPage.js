@@ -67,24 +67,6 @@ function LoginLandingPage(props) {
     activateForgetPasswordForm(false);
   }
 
-  React.useEffect(() => {
-    if (errorRef.current !== "" || errorRef.current !== undefined) {
-      errorRef.current.classList.add("login-landing-page__error_active");
-      errorRef.current.classList.add(
-        "animate__animated",
-        "animate__shakeX",
-        "animate__delay-0.2s"
-      );
-      errorRef.current.addEventListener("animationend", () =>
-        errorRef.current.classList.remove(
-          "animate__animated",
-          "animate__shakeX",
-          "animate__delay-0.2s"
-        )
-      );
-    }
-  }, [props.loginLandingPageErrProp]);
-
   return (
     <section className="login-landing-page__background">
       {forgotPasswordActivated ? (
@@ -129,6 +111,18 @@ function LoginLandingPage(props) {
                   onChange={(e) => handleChange(e)}
                 />
               </label>
+              {/*<label
+                className="login-landing-page__label"
+                for="register-username"
+              >Upload Avatar Here:
+                <input
+                  className="login-landing-page__input login-landing-page__input_avatar"
+                  type="file"
+                  id="register-avatar"
+                  
+                  name="avatar"
+                />
+              </label>*/}
               <label
                 className="login-landing-page__label"
                 for="register-username"
