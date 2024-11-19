@@ -1,7 +1,7 @@
 import React from "react";
 import "./CustomForm.css";
 
-function CustomForm() {
+function CustomForm(props) {
   const errorRef = React.useRef("");
 
   return (

@@ -8,6 +8,7 @@ import {
 } from "./LoginLandingPageReducer";
 import ForgotPasswordForm from "../ForgotPasswordForm/ForgotPasswordForm";
 import "animate.css";
+import CustomForm from "../CustomForm/CustomForm";
 
 function LoginLandingPage(props) {
   const [activeState, setActiveState] = React.useState("");
@@ -79,7 +80,10 @@ function LoginLandingPage(props) {
       ) : (
         <div className={`login-landing-page__container ${activeState}`}>
           <div className="login-landing-page__section login-landing-page__section_register">
-            <form className="login-landing-page__form login-landing-page__form_register">
+            <CustomForm
+              formName="register"
+              errorProp={props.loginLandingPageErrProp}
+            >
               <h1 className="login-landing-page__header">Create Account</h1>
               <p className="login-landing-page__text">
                 You can also create an account through
@@ -92,9 +96,6 @@ function LoginLandingPage(props) {
               >
                 Google
               </button>
-              <span ref={errorRef} className="login-landing-page__error">
-                {props.loginLandingPageErrProp}
-              </span>
               <label
                 className="login-landing-page__label"
                 for="register-username"
@@ -164,7 +165,7 @@ function LoginLandingPage(props) {
               >
                 Sign Up
               </ButtonRipple>
-            </form>
+            </CustomForm>
           </div>
           <div className="login-landing-page__section login-landing-page__section_login">
             <h1 className="login-landing-page__header">Welcome back!</h1>
@@ -178,7 +179,10 @@ function LoginLandingPage(props) {
             >
               Google
             </button>
-            <form className="login-landing-page__form login-landing-page__form_sign-in">
+            <CustomForm
+              formName="sign_in"
+              errorProp={props.loginLandingPageErrProp}
+            >
               <label className="login-landing-page__label" for="login-username">
                 <input
                   className="login-landing-page__input"
@@ -223,7 +227,7 @@ function LoginLandingPage(props) {
               >
                 Forgot your Password?
               </ButtonRipple>
-            </form>
+            </CustomForm>
           </div>
           <div className="login-landing-page__toggle-section">
             <div className="login-landing-page__toggle">

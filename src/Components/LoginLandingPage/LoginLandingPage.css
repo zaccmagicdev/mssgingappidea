@@ -73,23 +73,6 @@ label{
   animation: move 0.6s;
 }
 
-.login-landing-page__form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0 30px;
-  gap: 25px;
-}
-
-.login-landing-page__error{
-  font-size: 12px;
-  color: red;
-  background-color: rgb(255, 0, 0, 0.15);
-  position: absolute;
-  top: 280px;
-}
-
 .login-landing-page__header{
   font-size: 28px;
   margin: 0px;
@@ -154,26 +137,11 @@ label{
   width: 124px;
 }
 
-.login-landing-page__input {
-  width: 310px;
-  height: 30px;
-  background: none;
-  border: 1px solid grey;
-  filter: invert();
-  margin: auto;
-}
-
 .login-landing-page__input_avatar{
   border: none;
   filter: none;
   margin-top: 5px;
   cursor: pointer;
-}
-
-input[type="date"] { 
-  background: transparent;
-  filter: invert();
-  border: 1px solid grey
 }
 
 input:focus {

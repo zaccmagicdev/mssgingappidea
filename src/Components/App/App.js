@@ -67,6 +67,8 @@ function App() {
     }
   }
 
+  console.log(user)
+  
   //Auth Methods
   function signInFormMethod(email, password) {
     firebase
@@ -104,6 +106,7 @@ function App() {
           });
         })
         .catch((error) => {
+          console.log(error)
           setLandingPageError(error)
         })
         .finally(() => {
@@ -145,11 +148,12 @@ function App() {
   }
 
   React.useEffect(() => {
-    user &&
+    user != null &&
       auth.onAuthStateChanged((currentUser) => {
+        console.log('this worked')
         if (currentUser) {
           user = currentUser;
-          setProfileData(user.displayName, renderAvatar(user.photoURL));
+          setProfileData(currentUser.displayName, renderAvatar(currentUser.photoURL));
         } else {
           setProfileData(null, "");
         }
