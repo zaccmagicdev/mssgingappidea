@@ -31,7 +31,7 @@ const firestore = firebase.firestore();
 
 function App() {
   const [backgroundColor, setBackgroundColor] = React.useState("dark");
-  //let user = auth.currentUser;
+  let processedAvatar;
   let [user] = useAuthState(auth);
   const [username, setUsername] = React.useState(null);
   const [avatar, setAvatar] = React.useState("");
@@ -78,7 +78,7 @@ function App() {
         user = userCredential.user;
       })
       .catch((error) => {
-        console.log(error);
+        setLandingPageError(error);
       })
       .finally(() => {
         //force re-render
@@ -150,13 +150,14 @@ function App() {
 //auth persistence
   React.useEffect(() => {
     user != null &&
+    
     setProfileData(user.displayName, renderAvatar(user.photoURL));
     //setting new information when there is a new user detected
       auth.onAuthStateChanged((currentUser) => {
         console.log('this worked')
         if (currentUser) {
           user = currentUser;
-          //setProfileData(currentUser.displayName, renderAvatar(user.photoURL));
+          setProfileData(user.displayName, renderAvatar(user.photoURL));
         } else {
           setProfileData(null, "");
         }
