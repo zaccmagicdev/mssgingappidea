@@ -1,4 +1,4 @@
-export const SETTINGS_MENU_VALUES = {
+  export const SETTINGS_MENU_VALUES = {
     newUsername: "",
     newPassword: "",
     newEmail: ""
@@ -12,8 +12,6 @@ export const SettingsMenuReducer = (state, action) => {
             return { ...state, [action.payload.name]: action.payload.value };
 
         case 'LOGOUT':
-            return {...state, }
-
-            
+            return {...state, }    
     }
 }

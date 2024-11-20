@@ -83,6 +83,8 @@ function LoginLandingPage(props) {
             <CustomForm
               formName="register"
               errorProp={props.loginLandingPageErrProp}
+              submitButtonName={'Sign Up'}
+              submitFunction={(e) => handleSubmit(e)}
             >
               <h1 className="login-landing-page__header">Create Account</h1>
               <p className="login-landing-page__text">
@@ -156,7 +158,7 @@ function LoginLandingPage(props) {
                   onChange={(e) => handleChange(e)}
                 />
               </label>
-              <ButtonRipple
+              {/*<ButtonRipple
                 onClick={(e) => {
                   handleSubmit(e);
                 }}
@@ -164,7 +166,7 @@ function LoginLandingPage(props) {
                 id="register-submit"
               >
                 Sign Up
-              </ButtonRipple>
+              </ButtonRipple>*/}
             </CustomForm>
           </div>
           <div className="login-landing-page__section login-landing-page__section_login">
