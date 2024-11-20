@@ -36,7 +36,7 @@ export const SettingsMenu = (props) => {
        <SettingsMenuPopup name="edit-profile" callbackFunction={closeEditProfile} height={'210px'}>
           <h1>Edit Profile</h1>
           <Message Username={props.user.displayName} ProfileURL={props.avatar} currentDate={'12:00'} MessageContent={'This is some text'} color={'rgb(255,255,255,0.1)'}/>
-          <form className="settingsmenu__edit-profile__form" type='submit' onSubmit={() => handleUpdateProfile}>
+          {/*<form className="settingsmenu__edit-profile__form" type='submit' onSubmit={() => handleUpdateProfile}>
             <label>
               <input name="newUsername" />
             </label>
@@ -47,7 +47,7 @@ export const SettingsMenu = (props) => {
               <input name="newEmail" />
             </label>
             <ButtonRipple type='submit' >Update</ButtonRipple>
-          </form>
+          </form>*/}
        </SettingsMenuPopup>
       ) : (
         <ul className="settingsmenu__list">

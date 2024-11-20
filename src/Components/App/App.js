@@ -147,8 +147,13 @@ function App() {
       .catch((err) => console.error(err));
   }
 
+  // |
+  // |
+  // |
+  // V auth state changed not triggering - fix this first!!
   React.useEffect(() => {
     user != null &&
+    setProfileData(user.displayName, renderAvatar(user.photoURL));
       auth.onAuthStateChanged((currentUser) => {
         console.log('this worked')
         if (currentUser) {
