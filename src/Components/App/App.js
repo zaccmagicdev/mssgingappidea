@@ -14,7 +14,6 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-
 import { appConfig } from "../../constants/firebaseconfig";
 
 import {
@@ -59,7 +58,7 @@ function App() {
 
   function renderAvatar(avatar) {
     if (avatar !== null) {
-      if (avatar.includes("svg")) {
+      if (avatar.includes("<")) {
         return `data:image/svg+xml;utf8,${avatar}`;
       } else {
         return avatar;
@@ -67,6 +66,8 @@ function App() {
     }
   }
 
+
+  //for error handling later on
   console.log(user)
   
   //Auth Methods
@@ -82,7 +83,7 @@ function App() {
       })
       .finally(() => {
         //force re-render
-        setProfileData(user.displayName, user.photoURL);
+        setProfileData(user.displayName, renderAvatar(user.photoURL));
       });
   }
 
@@ -123,13 +124,12 @@ function App() {
       .signInWithPopup(provider)
       .then((result) => {
         user = result.user;
-        user.updateProfile({
-          displayName: username,
-          photoURL: generateFromString(user.email),
-        });
       })
       .catch((err) => console.error(err))
-      .finally(() => setProfileData(user.displayName, user.photoURL));
+      .finally(() => {
+        const processedAvatar = renderAvatar(user.photoURL)
+        setProfileData(user.displayName, processedAvatar);
+      });
   }
 
   function resetPassword(email) {
@@ -150,18 +150,19 @@ function App() {
 //auth persistence
   React.useEffect(() => {
     user != null &&
-    
+    //find a way to call renderAvatar before initial render
     setProfileData(user.displayName, renderAvatar(user.photoURL));
     //setting new information when there is a new user detected
       auth.onAuthStateChanged((currentUser) => {
-        console.log('this worked')
+        
         if (currentUser) {
           user = currentUser;
-          setProfileData(user.displayName, renderAvatar(user.photoURL));
+          const processedAvatar = renderAvatar(user.photoURL)
+          setProfileData(user.displayName, processedAvatar);
         } else {
           setProfileData(null, "");
         }
-      });
+      }); 
   }, []);
 
   const [state] = React.useReducer(LoginLandingPageReducer, INITIAL_FORM_STATE);
