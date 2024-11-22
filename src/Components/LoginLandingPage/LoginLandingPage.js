@@ -18,7 +18,6 @@ function LoginLandingPage(props) {
     LoginLandingPageReducer,
     INITIAL_FORM_STATE
   );
-  const errorRef = React.useRef("");
 
   function handleChange(e) {
     dispatch({
@@ -158,15 +157,6 @@ function LoginLandingPage(props) {
                   onChange={(e) => handleChange(e)}
                 />
               </label>
-              {/*<ButtonRipple
-                onClick={(e) => {
-                  handleSubmit(e);
-                }}
-                className="login-landing-page__link"
-                id="register-submit"
-              >
-                Sign Up
-              </ButtonRipple>*/}
             </CustomForm>
           </div>
           <div className="login-landing-page__section login-landing-page__section_login">

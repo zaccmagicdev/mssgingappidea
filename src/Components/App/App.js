@@ -30,7 +30,7 @@ const firestore = firebase.firestore();
 
 function App() {
   const [backgroundColor, setBackgroundColor] = React.useState("dark");
-  let processedAvatar;
+  //let processedAvatar;
   let [user] = useAuthState(auth);
   const [username, setUsername] = React.useState(null);
   const [avatar, setAvatar] = React.useState("");
@@ -66,10 +66,27 @@ function App() {
     }
   }
 
+  function deleteAccount(user) {
+    user.delete().catch((error) => console.error(error));
+  }
+
+  function editProfileInformation(user, newUsername="", newAvatar="") {
+    user
+      .updateProfile({
+        displayName: newUsername,
+        photoURL: newAvatar,
+      })
+      .then(() => {
+        setProfileData(user.displayName, renderAvatar(user.photoURL));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   //for error handling later on
-  console.log(user)
-  
+  console.log(user);
+
   //Auth Methods
   function signInFormMethod(email, password) {
     firebase
@@ -107,8 +124,8 @@ function App() {
           });
         })
         .catch((error) => {
-          console.log(error)
-          setLandingPageError(error)
+          console.log(error);
+          setLandingPageError(error);
         })
         .finally(() => {
           console.log(user);
@@ -127,7 +144,7 @@ function App() {
       })
       .catch((err) => console.error(err))
       .finally(() => {
-        const processedAvatar = renderAvatar(user.photoURL)
+        const processedAvatar = renderAvatar(user.photoURL);
         setProfileData(user.displayName, processedAvatar);
       });
   }
@@ -147,25 +164,22 @@ function App() {
       .catch((err) => console.error(err));
   }
 
-//auth persistence
+  //auth persistence
   React.useEffect(() => {
     user != null &&
-    //find a way to call renderAvatar before initial render
-    setProfileData(user.displayName, renderAvatar(user.photoURL));
+      //find a way to call renderAvatar before initial render
+      setProfileData(user.displayName, renderAvatar(user.photoURL));
     //setting new information when there is a new user detected
-      auth.onAuthStateChanged((currentUser) => {
-        
-        if (currentUser) {
-          user = currentUser;
-          const processedAvatar = renderAvatar(user.photoURL)
-          setProfileData(user.displayName, processedAvatar);
-        } else {
-          setProfileData(null, "");
-        }
-      }); 
+    auth.onAuthStateChanged((currentUser) => {
+      if (currentUser) {
+        user = currentUser;
+        const processedAvatar = renderAvatar(user.photoURL);
+        setProfileData(user.displayName, processedAvatar);
+      } else {
+        setProfileData(null, "");
+      }
+    });
   }, []);
-
-  const [state] = React.useReducer(LoginLandingPageReducer, INITIAL_FORM_STATE);
 
   //app
   return (
@@ -183,6 +197,8 @@ function App() {
                 element={
                   <SettingsMenu
                     signOutMethod={handleSignOut}
+                    handleUpdateProfile={editProfileInformation}
+                    handleDeleteAccount={deleteAccount}
                     auth={auth}
                     user={user}
                     avatar={avatar}
