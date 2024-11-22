@@ -9,6 +9,9 @@ export const SettingsMenuReducer = (state, action) => {
     case "CHANGE_INPUT":
       return { ...state, [action.payload.name]: action.payload.value };
 
+    case "DELETE_USER":
+      return { submitMethod: () => action.payload.submitMethod() };
+
     case "UPDATE_INFORMATION":
       return {
         ...state,

@@ -82,7 +82,9 @@ function App() {
       .catch((error) => {
         console.error(error);
       })
-      .finally(() => setProfileData(newUsername, newAvatar));
+      .finally(() => {
+        setProfileData(newUsername, newAvatar);
+      });
   }
 
   //Auth Methods
@@ -196,7 +198,7 @@ function App() {
                   <SettingsMenu
                     signOutMethod={handleSignOut}
                     handleUpdateProfile={editProfileInformation}
-                    handleDeleteAccount={deleteAccount}
+                    deleteAccountProp={deleteAccount}
                     auth={auth}
                     user={user}
                     avatar={avatar}

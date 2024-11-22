@@ -28,6 +28,13 @@ export const SettingsMenu = (props) => {
     });
   }
 
+  function handleDeleteUser(){
+    dispatch({
+      type: "DELETE_USER",
+      payload: props.deleteAccountProp()
+    })
+  }
+
   function openEditProfile() {
     setProfileEditOpen(true);
   }
@@ -107,6 +114,11 @@ export const SettingsMenu = (props) => {
             OptionName="Log Out"
             Callback={() => signOut()}
             ButtonName="Log Out"
+          />
+          <SettingsMenuOption
+            OptionName="Delete Account"
+            Callback={handleDeleteUser}
+            ButtonName="Delete"
           />
           <SettingsMenuOption
             OptionName="Edit User Profile"
