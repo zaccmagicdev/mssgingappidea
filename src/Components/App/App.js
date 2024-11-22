@@ -14,6 +14,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { updateProfile } from "firebase/auth";
 import { appConfig } from "../../constants/firebaseconfig";
 
 import {
@@ -66,26 +67,23 @@ function App() {
     }
   }
 
-  function deleteAccount(user) {
+  console.log(user);
+
+  function deleteAccount() {
     user.delete().catch((error) => console.error(error));
   }
 
-  function editProfileInformation(user, newUsername="", newAvatar="") {
-    user
+  function editProfileInformation(newUsername, newAvatar) {
+    auth.currentUser
       .updateProfile({
         displayName: newUsername,
         photoURL: newAvatar,
       })
-      .then(() => {
-        setProfileData(user.displayName, renderAvatar(user.photoURL));
-      })
       .catch((error) => {
         console.error(error);
-      });
+      })
+      .finally(() => setProfileData(newUsername, newAvatar));
   }
-
-  //for error handling later on
-  console.log(user);
 
   //Auth Methods
   function signInFormMethod(email, password) {
@@ -94,6 +92,7 @@ function App() {
       .signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         user = userCredential.user;
+        console.log(user);
       })
       .catch((error) => {
         setLandingPageError(error);
@@ -128,7 +127,6 @@ function App() {
           setLandingPageError(error);
         })
         .finally(() => {
-          console.log(user);
           Object.keys(landingPageError).length !== 0 && setLandingPageError({});
           navigate("/messages");
         });
@@ -172,7 +170,7 @@ function App() {
     //setting new information when there is a new user detected
     auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
-        user = currentUser;
+        user = auth.currentUser;
         const processedAvatar = renderAvatar(user.photoURL);
         setProfileData(user.displayName, processedAvatar);
       } else {

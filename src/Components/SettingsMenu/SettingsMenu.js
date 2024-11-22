@@ -12,12 +12,21 @@ import {
 } from "./SettingsMenuReducer";
 
 export const SettingsMenu = (props) => {
+  const fileInputRef = React.useRef("");
   const [profileEditOpen, setProfileEditOpen] = React.useState(false);
   const [state, dispatch] = React.useReducer(
     SettingsMenuReducer,
     SETTINGS_MENU_VALUES
   );
   const { handleBackgroundThemeChange } = React.useContext(currentColorContext);
+  console.log(fileInputRef);
+
+  function handleChange(e) {
+    dispatch({
+      type: "CHANGE_INPUT",
+      payload: { name: e.target.name, value: e.target.value },
+    });
+  }
 
   function openEditProfile() {
     setProfileEditOpen(true);
@@ -51,9 +60,13 @@ export const SettingsMenu = (props) => {
             formName="update_profile"
             submitButtonName={"Reset Information"}
             submitFunction={() => {
+              state.newAvatar = URL.createObjectURL(fileInputRef.current.files[0]);
               dispatch({
                 type: "UPDATE_INFORMATION",
-                payload: props.handleUpdateProfile(props.user, state.newUsername, state.newAvatar),
+                payload: props.handleUpdateProfile(
+                  state.newUsername,
+                  state.newAvatar
+                ),
               });
             }}
           >
@@ -61,22 +74,22 @@ export const SettingsMenu = (props) => {
               <input
                 className="login-landing-page__input"
                 type="text"
-                id="reset-username"
+                name="newUsername"
+                id="new-username"
                 placeholder="New Username"
                 required
                 minLength="5"
                 maxLength="35"
+                onChange={(e) => handleChange(e)}
               />
             </label>
-            <label className="login-landing-page__label" for="login-password">
+            <label className="login-landing-page__label" for="reset-avatar">
               <input
                 className="login-landing-page__input"
-                type="text"
-                id="reset-password"
-                placeholder="New Password"
-                required
-                minLength="5"
-                maxLength="35"
+                type="file"
+                id="new-avatar"
+                name="newAvatar"
+                ref={fileInputRef}
               />
             </label>
           </CustomForm>

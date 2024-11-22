@@ -1,8 +1,6 @@
 export const SETTINGS_MENU_VALUES = {
   newUsername: "",
   newAvatar: "",
-  newPassword: "",
-  newEmail: "",
   submitMethod: () => {},
 };
 
