@@ -1,6 +1,7 @@
 import React from "react";
 import "./CustomForm.css";
 import ButtonRipple from "../ButtonRipple/ButtonRipple";
+import formErrorHandler from "../../util/formerrorhandler";
 
 function CustomForm(props) {
   const errorRef = React.useRef("");
@@ -12,7 +13,7 @@ function CustomForm(props) {
     >
       {props.children}
       <span ref={errorRef} className="login-landing-page__error">
-        {props.errorProp}
+        {props.errorProp && formErrorHandler(props.errorProp)}
       </span>
       <ButtonRipple
         onClick={(e) => {

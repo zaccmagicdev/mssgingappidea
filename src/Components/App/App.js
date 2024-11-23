@@ -97,11 +97,12 @@ function App() {
         console.log(user);
       })
       .catch((error) => {
+        console.log(error)
         setLandingPageError(error);
       })
       .finally(() => {
         //force re-render
-        setProfileData(user.displayName, renderAvatar(user.photoURL));
+        user && setProfileData(user.displayName, renderAvatar(user.photoURL));
       });
   }
 
